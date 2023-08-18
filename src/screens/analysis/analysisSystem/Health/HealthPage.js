@@ -12,23 +12,74 @@ import {BasketIconGreen} from '../../../../assets/svgs/HomeScreenSvgs';
 import Svg, {Path} from 'react-native-svg';
 import HealthNav from './HealthNav';
 
-const Petal = ({onPress, angle, index}) => {
-  const distanceFromCenter = 130; // Расстояние от центра до лепестка
-  const x = distanceFromCenter * Math.cos(angle);
-  const y = distanceFromCenter * Math.sin(angle);
+const imageData = [
+  {
+    id: 1,
+    img: require('../../../../assets/images/health/lightGreen.png'),
+    rotateX: '180deg',
+  },
+  {
+    id: 2,
+    img: require('../../../../assets/images/health/blue.png'),
+    rotateX: '180deg',
+  },
+  {
+    id: 3,
+    img: require('../../../../assets/images/health/lightGreen.png'),
+    rotateX: '90deg',
+  },
+  {
+    id: 4,
+    img: require('../../../../assets/images/health/lightGreen.png'),
+    rotateX: '0deg',
+  },
+  {
+    id: 5,
+    img: require('../../../../assets/images/health/lightGreen.png'),
+    rotateX: '0deg',
+  },
+  {
+    id: 6,
+    img: require('../../../../assets/images/health/lightGreen.png'),
+    rotateX: '0deg',
+  },
+  {
+    id: 7,
+    img: require('../../../../assets/images/health/lightGreen.png'),
+    rotateX: '0deg',
+  },
+  {
+    id: 8,
+    img: require('../../../../assets/images/health/lightGreen.png'),
+    rotateX: '0deg',
+  },
+  {
+    id: 9,
+    img: require('../../../../assets/images/health/lightGreen.png'),
+    rotateX: '0deg',
+  },
+  {
+    id: 10,
+    img: require('../../../../assets/images/health/lightGreen.png'),
+    rotateX: '0deg',
+  },
+];
 
+const Petal = ({onPress, angle, index, img, transform}) => {
   return (
     <TouchableOpacity
-      style={[styles.petal, {top: y, left: x}]}
+      style={[styles.petal, {top: y, left: x, transform: transform}]}
       onPress={onPress}>
-      <Text>Лепесток{index}</Text>
+      <Image source={img} />
     </TouchableOpacity>
   );
 };
 
 export default function HealthPage({navigation}) {
-  const numberOfPetals = 10;
-  const angleBetween = (2 * Math.PI) / numberOfPetals;
+  const angleBetween = (2 * Math.PI) / 10;
+  const distanceFromCenter = 130; // Расстояние от центра до лепестка
+  const x = distanceFromCenter * Math.cos(angleBetween);
+  const y = distanceFromCenter * Math.sin(angleBetween);
   return (
     <SafeAreaView style={{flex: 1, paddingTop: 50}}>
       <ImageBackground
@@ -73,23 +124,61 @@ export default function HealthPage({navigation}) {
             * Выберете сферу, с которой хотите поработать{' '}
           </Text>
         </View>
-        {/* <Image
-          style={{width: 320, height: 320, alignSelf: 'center', marginTop: 10}}
-          source={require('../../../../assets/images/cyrcle.png')}
-        /> */}
-        <View style={styles.wrapper}>
-          <View style={styles.flower}>
-            {Array.from({length: numberOfPetals}).map((_, index) => (
-              <Petal
-                key={index}
-                angle={index * angleBetween}
-                onPress={() => alert(`Лепесток ${index + 1} нажат`)}
-                index={index}
-              />
-            ))}
-            <View style={styles.center}></View>
+        <View style={{height: 370}}>
+          <View style={styles.wrapper}>
+            <View style={styles.flower}>
+              <TouchableOpacity style={[styles.petalFirst, {top: y, left: x}]}>
+                <Image
+                  source={require('../../../../assets/images/health/red.png')}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity style={[styles.petalSecond, {top: y, left: x}]}>
+                <Image
+                  source={require('../../../../assets/images/health/lightGreen.png')}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity style={[styles.petalthird, {top: y, left: x}]}>
+                <Image
+                  source={require('../../../../assets/images/health/lightOrange.png')}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity style={[styles.petalfourth, {top: y, left: x}]}>
+                <Image
+                  source={require('../../../../assets/images/health/lightGreen.png')}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity style={[styles.petalFifth, {top: y, left: x}]}>
+                <Image
+                  source={require('../../../../assets/images/health/green.png')}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity style={[styles.petalsixth, {top: y, left: x}]}>
+                <Image
+                  source={require('../../../../assets/images/health/lightGreen.png')}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.petalseventh, {top: y, left: x}]}>
+                <Image
+                  source={require('../../../../assets/images/health/orange.png')}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.petaleightth, {top: y, left: x}]}>
+                <Image
+                  source={require('../../../../assets/images/health/lightGreen.png')}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <Image
+                  style={{width: 70, height: 70}}
+                  source={require('../../../../assets/images/health/center.png')}
+                />
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
+
         <Image
           style={{width: '100%', height: 80}}
           source={require('../../../../assets/images/shadow.png')}
@@ -139,8 +228,10 @@ const styles = StyleSheet.create({
   wrapper: {
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop: 50,
+    width: '100%',
+    height: 500,
     flex: 1,
-    marginTop: 190,
   },
   flower: {
     width: 350,
@@ -151,20 +242,67 @@ const styles = StyleSheet.create({
     backgroundColor: '#75C3AE12',
     borderRadius: 300,
   },
-  petal: {
-    width: 60,
-    height: 60,
-    backgroundColor: 'pink',
+  petalFirst: {
     justifyContent: 'center',
     alignItems: 'center',
     position: 'absolute',
     borderRadius: 30,
-    transform: [{translateX: 145}, {translateY: 150}],
+    transform: [{translateX: 105}, {translateY: 35}],
   },
+  petalSecond: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    borderRadius: 30,
+    transform: [{translateX: 125}, {translateY: 90}, {rotate: '144deg'}],
+  },
+  petalthird: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    borderRadius: 30,
+    transform: [{translateX: 75}, {translateY: 130}],
+  },
+  petalfourth: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    borderRadius: 30,
+    transform: [{translateX: 10}, {translateY: 138}, {rotate: '-144deg'}],
+  },
+  petalFifth: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    borderRadius: 30,
+    transform: [{translateX: -75}, {translateY: 120}],
+  },
+  petalsixth: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    borderRadius: 30,
+    transform: [{translateX: -82}, {translateY: 55}, {rotate: '-72deg'}],
+  },
+  petalseventh: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    borderRadius: 30,
+    transform: [{translateX: -100}, {translateY: -18}],
+  },
+  petaleightth: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    borderRadius: 30,
+    transform: [{translateX: -25}, {translateY: -65}],
+  },
+
   center: {
-    width: 70,
-    height: 70,
-    backgroundColor: 'green',
-    borderRadius: 70,
+    // width: 70,
+    // height: 70,
+    // backgroundColor: 'green',
+    // borderRadius: 70,
   },
 });
