@@ -11,6 +11,11 @@ const initialState = {
   createAnalysis: [],
   addNewOrdersData: [],
   medicalTestSingleData: [],
+  flowerdata: [],
+
+
+
+  
 };
 
 function analysisReducer(state = initialState, action) {
@@ -39,6 +44,8 @@ function analysisReducer(state = initialState, action) {
       return {...state, addNewOrdersData: action.payload};
     case 'MEDICAL_TEST_SINGLE':
       return {...state, medicalTestSingleData: action.payload};
+    case 'FLOWER_DATA':
+      return {...state, flowerdata: action.payload};
     default:
       return state;
   }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   TouchableOpacity,
   ImageBackground,
@@ -11,75 +11,21 @@ import {
 import {BasketIconGreen} from '../../../../assets/svgs/HomeScreenSvgs';
 import Svg, {Path} from 'react-native-svg';
 import HealthNav from './HealthNav';
-
-const imageData = [
-  {
-    id: 1,
-    img: require('../../../../assets/images/health/lightGreen.png'),
-    rotateX: '180deg',
-  },
-  {
-    id: 2,
-    img: require('../../../../assets/images/health/blue.png'),
-    rotateX: '180deg',
-  },
-  {
-    id: 3,
-    img: require('../../../../assets/images/health/lightGreen.png'),
-    rotateX: '90deg',
-  },
-  {
-    id: 4,
-    img: require('../../../../assets/images/health/lightGreen.png'),
-    rotateX: '0deg',
-  },
-  {
-    id: 5,
-    img: require('../../../../assets/images/health/lightGreen.png'),
-    rotateX: '0deg',
-  },
-  {
-    id: 6,
-    img: require('../../../../assets/images/health/lightGreen.png'),
-    rotateX: '0deg',
-  },
-  {
-    id: 7,
-    img: require('../../../../assets/images/health/lightGreen.png'),
-    rotateX: '0deg',
-  },
-  {
-    id: 8,
-    img: require('../../../../assets/images/health/lightGreen.png'),
-    rotateX: '0deg',
-  },
-  {
-    id: 9,
-    img: require('../../../../assets/images/health/lightGreen.png'),
-    rotateX: '0deg',
-  },
-  {
-    id: 10,
-    img: require('../../../../assets/images/health/lightGreen.png'),
-    rotateX: '0deg',
-  },
-];
-
-const Petal = ({onPress, angle, index, img, transform}) => {
-  return (
-    <TouchableOpacity
-      style={[styles.petal, {top: y, left: x, transform: transform}]}
-      onPress={onPress}>
-      <Image source={img} />
-    </TouchableOpacity>
-  );
-};
+import {getFlowerData} from '../../../../store/actions/actionsAnalysis';
+import {useSelector, useDispatch} from 'react-redux';
 
 export default function HealthPage({navigation}) {
   const angleBetween = (2 * Math.PI) / 10;
   const distanceFromCenter = 130; // Расстояние от центра до лепестка
   const x = distanceFromCenter * Math.cos(angleBetween);
   const y = distanceFromCenter * Math.sin(angleBetween);
+  const dispatch = useDispatch();
+  const {flowerdata} = useSelector(state => state.analysisReducer);
+
+  useEffect(() => {
+    dispatch(getFlowerData());
+  }, []);
+
   return (
     <SafeAreaView style={{flex: 1, paddingTop: 50}}>
       <ImageBackground
@@ -127,48 +73,175 @@ export default function HealthPage({navigation}) {
         <View style={{height: 370}}>
           <View style={styles.wrapper}>
             <View style={styles.flower}>
-              <TouchableOpacity style={[styles.petalFirst, {top: y, left: x}]}>
-                <Image
-                  source={require('../../../../assets/images/health/red.png')}
-                />
-              </TouchableOpacity>
-              <TouchableOpacity style={[styles.petalSecond, {top: y, left: x}]}>
-                <Image
-                  source={require('../../../../assets/images/health/lightGreen.png')}
-                />
-              </TouchableOpacity>
-              <TouchableOpacity style={[styles.petalthird, {top: y, left: x}]}>
-                <Image
-                  source={require('../../../../assets/images/health/lightOrange.png')}
-                />
-              </TouchableOpacity>
-              <TouchableOpacity style={[styles.petalfourth, {top: y, left: x}]}>
-                <Image
-                  source={require('../../../../assets/images/health/lightGreen.png')}
-                />
-              </TouchableOpacity>
-              <TouchableOpacity style={[styles.petalFifth, {top: y, left: x}]}>
-                <Image
-                  source={require('../../../../assets/images/health/green.png')}
-                />
-              </TouchableOpacity>
-              <TouchableOpacity style={[styles.petalsixth, {top: y, left: x}]}>
-                <Image
-                  source={require('../../../../assets/images/health/lightGreen.png')}
-                />
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[styles.petalseventh, {top: y, left: x}]}>
-                <Image
-                  source={require('../../../../assets/images/health/orange.png')}
-                />
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[styles.petaleightth, {top: y, left: x}]}>
-                <Image
-                  source={require('../../../../assets/images/health/lightGreen.png')}
-                />
-              </TouchableOpacity>
+              {flowerdata?.data?.map((value, index) => {
+                return (
+                  // <Text key={index}>{value.LABEL}</Text>
+                  <TouchableOpacity
+                    key={index}
+                    style={[
+                      index == 0 && styles.petalFirst,
+                      index == 1 && styles.petalSecond,
+                      index == 2 && styles.petalthird,
+                      index == 3 && styles.petalfourth,
+                      index == 4 && styles.petalFifth,
+                      index == 5 && styles.petalsixth,
+                      index == 6 && styles.petalseventh,
+                      index == 7 && styles.petaleightth,
+                      index == 8 && styles.petaleninghth,
+                      index == 9 && styles.petaletenth,
+
+                      {top: y, left: x},
+                    ]}>
+                    <Text
+                      style={[
+                        styles.petalText,
+                        index == 0 && {
+                          zIndex: 55555,
+                          width: '30%',
+                          transform: [
+                            {rotate: '90deg'},
+                            {translateX: 19},
+                            {translateY: 14},
+                          ],
+                        },
+                        index == 1 && {
+                          zIndex: 55555,
+                          width: '50%',
+                          transform: [
+                            {rotate: '-20deg'},
+                            {translateX: 10},
+                            {translateY: 10},
+                          ],
+                        },
+                        index == 2 && {
+                          zIndex: 55555,
+                          width: '50%',
+                          transform: [
+                            {rotate: '160deg'},
+                            {translateX: 10},
+                            {translateY: 10},
+                          ],
+                        },
+                        index == 3 && {
+                          zIndex: 55555,
+                          width: '50%',
+                          transform: [
+                            {rotate: '-30deg'},
+                            {translateX: 10},
+                            {translateY: 10},
+                          ],
+                        },
+                        index == 4 && {
+                          zIndex: 55555,
+                          width: '50%',
+                          transform: [
+                            {rotate: '150deg'},
+                            {translateX: 5},
+                            {translateY: 10},
+                          ],
+                        },
+                        index == 5 && {
+                          zIndex: 55555,
+                          width: '100%',
+                          transform: [
+                            {rotate: '70deg'},
+                            {translateX: 20},
+                            {translateY: -10},
+                          ],
+                        },
+                        index == 6 && {
+                          zIndex: 55555,
+                          width: '50%',
+                          transform: [
+                            {rotate: '20deg'},
+                            {translateX: 10},
+                            {translateY: 10},
+                          ],
+                        },
+                        index == 7 && {
+                          zIndex: 55555,
+                          width: '50%',
+                          transform: [
+                            {rotate: '20deg'},
+                            {translateX: 10},
+                            {translateY: 10},
+                          ],
+                        },
+                        index == 8 && {
+                          zIndex: 55555,
+                          width: '50%',
+                          transform: [
+                            {rotate: '20deg'},
+                            {translateX: 10},
+                            {translateY: 10},
+                          ],
+                        },
+                        index == 9 && {
+                          zIndex: 55555,
+                          width: '50%',
+                          transform: [
+                            {rotate: '20deg'},
+                            {translateX: 10},
+                            {translateY: 10},
+                          ],
+                        },
+                      ]}>
+                      {value.LABEL}
+                    </Text>
+                    {index == 0 && (
+                      <Image
+                        source={require('../../../../assets/images/health/red.png')}
+                      />
+                    )}
+                    {index == 1 && (
+                      <Image
+                        source={require('../../../../assets/images/health/lightGreen.png')}
+                      />
+                    )}
+                    {index == 2 && (
+                      <Image
+                        source={require('../../../../assets/images/health/lightOrange.png')}
+                      />
+                    )}
+                    {index == 3 && (
+                      <Image
+                        source={require('../../../../assets/images/health/lightGreen.png')}
+                      />
+                    )}
+                    {index == 4 && (
+                      <Image
+                        source={require('../../../../assets/images/health/green.png')}
+                      />
+                    )}
+                    {index == 5 && (
+                      <Image
+                        source={require('../../../../assets/images/health/lightGreen.png')}
+                      />
+                    )}
+                    {index == 6 && (
+                      <Image
+                        source={require('../../../../assets/images/health/orange.png')}
+                      />
+                    )}
+                    {index == 7 && (
+                      <Image
+                        source={require('../../../../assets/images/health/lightGreen.png')}
+                      />
+                    )}
+                    {index == 8 && (
+                      <Image
+                        source={require('../../../../assets/images/health/blue.png')}
+                      />
+                    )}
+                    {index == 9 && (
+                      <Image
+                        source={require('../../../../assets/images/health/lightGreen.png')}
+                      />
+                    )}
+                  </TouchableOpacity>
+                );
+              })}
+
               <TouchableOpacity>
                 <Image
                   style={{width: 70, height: 70}}
@@ -247,14 +320,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     position: 'absolute',
     borderRadius: 30,
-    transform: [{translateX: 105}, {translateY: 35}],
+    transform: [{translateX: 105}, {translateY: 25}],
   },
   petalSecond: {
     justifyContent: 'center',
     alignItems: 'center',
     position: 'absolute',
     borderRadius: 30,
-    transform: [{translateX: 125}, {translateY: 90}, {rotate: '144deg'}],
+    transform: [{translateX: 125}, {translateY: 85}, {rotate: '144deg'}],
   },
   petalthird: {
     justifyContent: 'center',
@@ -298,7 +371,26 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     transform: [{translateX: -25}, {translateY: -65}],
   },
-
+  petaleninghth: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    borderRadius: 30,
+    transform: [{translateX: 15}, {translateY: -85}],
+  },
+  petaletenth: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    borderRadius: 30,
+    transform: [{translateX: 105}, {translateY: -45}, {rotate: '75deg'}],
+  },
+  petalText: {
+    position: 'absolute',
+    fontSize: 8,
+    fontWeight: '600',
+    color: 'white',
+  },
   center: {
     // width: 70,
     // height: 70,

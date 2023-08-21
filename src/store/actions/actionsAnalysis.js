@@ -329,3 +329,30 @@ export const getMedicalTestParmasSinglePage = test_id => {
     };
   } catch (error) {}
 };
+
+
+
+export const getFlowerData = value => {
+  try {
+    return async dispatch => {
+      let url = `https://archimed.justcode.am/api/get_analise_and_service`;
+      let requestOptions = {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
+      fetch(url, requestOptions)
+        .then(resp => {
+          return resp.json();
+        })
+        .then(resp => {
+          dispatch({
+            type: 'FLOWER_DATA',
+            payload: resp,
+          });
+        })
+        .catch(err => console.error(err));
+    };
+  } catch (error) {}
+};

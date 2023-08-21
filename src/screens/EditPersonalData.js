@@ -219,6 +219,8 @@ export default function EditPersonalData({navigation, route}) {
           onChangeText={setName}
           Svg={nameError ? RedUser : User}
         />
+
+
         {lastNameError && (
           <Text style={{color: '#FF5454', fontSize: 10, marginBottom: 5}}>
             *Данное поле обязательно для заполнения
