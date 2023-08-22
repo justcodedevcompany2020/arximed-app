@@ -17,6 +17,7 @@ import MapScreen from '../basket/Map';
 import {DoctorsNavigator} from '../../navigation/NavigationMenu';
 import {BackIcon, BasketIcon} from '../../assets/svgs/HomeScreenSvgs';
 import {TouchableOpacity} from 'react-native';
+import SinglePageFlower from './analysisSystem/Health/singlePageFlower';
 
 const Stack = createNativeStackNavigator();
 
@@ -254,6 +255,21 @@ export default function AnalysisStackNavigation() {
             <HeaderTitle
               navigation={navigation}
               title={'Адрес'}
+              fontSize={20}
+            />
+          ),
+        })}
+      />
+            <Stack.Screen
+        name="SinglePageFlower"
+        component={SinglePageFlower}
+        options={({navigation}) => ({
+          title: '',
+          headerTransparent: true,
+          headerLeft: () => (
+            <HeaderTitle
+              navigation={navigation}
+              title={'Анализы'}
               fontSize={20}
             />
           ),

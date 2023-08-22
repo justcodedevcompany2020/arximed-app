@@ -32,6 +32,7 @@ import TechnicalWorkInProgress from '../screens/TechnicalWorkInProgress';
 import PinCodeScreen from '../screens/PinCode/PinCodeScreen';
 import WritePinAgain from '../screens/PinCode/WritePinAgain';
 import IncorrectPinScreen from '../screens/PinCode/IncorrectPinScreen';
+import SinglePageFlower from '../screens/analysis/analysisSystem/Health/singlePageFlower';
 //components
 import WelcomeSwiper from '../Swiper';
 import HeaderTitle from '../navigation/HeaderTitle';
@@ -609,6 +610,21 @@ const AppNavigation = ({initialRouteName}) => {
             headerTransparent: true,
             headerLeft: () => (
               <HeaderTitle navigation={navigation} title={'Платежи'} left />
+            ),
+          })}
+        />
+        <Stack.Screen
+          name="SinglePageFlower"
+          component={SinglePageFlower}
+          options={({navigation}) => ({
+            title: '',
+            headerTransparent: true,
+            headerLeft: () => (
+              <HeaderTitle
+                navigation={navigation}
+                title={'Анализы'}
+                fontSize={20}
+              />
             ),
           })}
         />

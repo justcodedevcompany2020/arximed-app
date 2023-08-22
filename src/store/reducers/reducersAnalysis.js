@@ -13,8 +13,6 @@ const initialState = {
   medicalTestSingleData: [],
   flowerdata: [],
 
-
-
   
 };
 

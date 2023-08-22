@@ -11,8 +11,12 @@ import {
 import {BasketIconGreen} from '../../../../assets/svgs/HomeScreenSvgs';
 import Svg, {Path} from 'react-native-svg';
 import HealthNav from './HealthNav';
-import {getFlowerData} from '../../../../store/actions/actionsAnalysis';
+import {
+  getFlowerData,
+  getMedicalTestParmasSinglePage,
+} from '../../../../store/actions/actionsAnalysis';
 import {useSelector, useDispatch} from 'react-redux';
+import {ScrollView} from 'react-native-gesture-handler';
 
 export default function HealthPage({navigation}) {
   const angleBetween = (2 * Math.PI) / 10;
@@ -25,6 +29,8 @@ export default function HealthPage({navigation}) {
   useEffect(() => {
     dispatch(getFlowerData());
   }, []);
+
+  console.log(flowerdata, 'jkF');
 
   return (
     <SafeAreaView style={{flex: 1, paddingTop: 50}}>
@@ -65,6 +71,8 @@ export default function HealthPage({navigation}) {
           </TouchableOpacity>
         </View>
         <Text style={styles.textHeader}>Здоровье</Text>
+      </View>
+      <ScrollView>
         <View style={styles.blueBlock}>
           <Text style={styles.blueBlockText}>
             * Выберете сферу, с которой хотите поработать{' '}
@@ -77,6 +85,9 @@ export default function HealthPage({navigation}) {
                 return (
                   // <Text key={index}>{value.LABEL}</Text>
                   <TouchableOpacity
+                    onPress={() => {
+                      navigation.navigate('SinglePageFlower', {data: value});
+                    }}
                     key={index}
                     style={[
                       index == 0 && styles.petalFirst,
@@ -93,6 +104,8 @@ export default function HealthPage({navigation}) {
                       {top: y, left: x},
                     ]}>
                     <Text
+                      ellipsizeMode="clip"
+                      numberOfLines={2}
                       style={[
                         styles.petalText,
                         index == 0 && {
@@ -100,7 +113,7 @@ export default function HealthPage({navigation}) {
                           width: '30%',
                           transform: [
                             {rotate: '90deg'},
-                            {translateX: 19},
+                            {translateX: 22},
                             {translateY: 14},
                           ],
                         },
@@ -109,7 +122,7 @@ export default function HealthPage({navigation}) {
                           width: '50%',
                           transform: [
                             {rotate: '-20deg'},
-                            {translateX: 10},
+                            {translateX: 24},
                             {translateY: 10},
                           ],
                         },
@@ -118,7 +131,7 @@ export default function HealthPage({navigation}) {
                           width: '50%',
                           transform: [
                             {rotate: '160deg'},
-                            {translateX: 10},
+                            {translateX: 22},
                             {translateY: 10},
                           ],
                         },
@@ -126,8 +139,8 @@ export default function HealthPage({navigation}) {
                           zIndex: 55555,
                           width: '50%',
                           transform: [
-                            {rotate: '-30deg'},
-                            {translateX: 10},
+                            {rotate: '-25deg'},
+                            {translateX: 16},
                             {translateY: 10},
                           ],
                         },
@@ -135,7 +148,7 @@ export default function HealthPage({navigation}) {
                           zIndex: 55555,
                           width: '50%',
                           transform: [
-                            {rotate: '150deg'},
+                            {rotate: '140deg'},
                             {translateX: 5},
                             {translateY: 10},
                           ],
@@ -144,26 +157,26 @@ export default function HealthPage({navigation}) {
                           zIndex: 55555,
                           width: '100%',
                           transform: [
-                            {rotate: '70deg'},
-                            {translateX: 20},
-                            {translateY: -10},
+                            {rotate: '-110deg'},
+                            {translateX: -10},
+                            {translateY: 10},
                           ],
                         },
                         index == 6 && {
                           zIndex: 55555,
                           width: '50%',
                           transform: [
-                            {rotate: '20deg'},
-                            {translateX: 10},
-                            {translateY: 10},
+                            {rotate: '-140deg'},
+                            {translateX: -9},
+                            {translateY: 15},
                           ],
                         },
                         index == 7 && {
                           zIndex: 55555,
                           width: '50%',
                           transform: [
-                            {rotate: '20deg'},
-                            {translateX: 10},
+                            {rotate: '-20deg'},
+                            {translateX: 20},
                             {translateY: 10},
                           ],
                         },
@@ -171,22 +184,25 @@ export default function HealthPage({navigation}) {
                           zIndex: 55555,
                           width: '50%',
                           transform: [
-                            {rotate: '20deg'},
-                            {translateX: 10},
-                            {translateY: 10},
+                            {rotate: '-70deg'},
+                            {translateX: -5},
+                            {translateY: 14},
                           ],
                         },
                         index == 9 && {
                           zIndex: 55555,
                           width: '50%',
                           transform: [
-                            {rotate: '20deg'},
-                            {translateX: 10},
+                            {rotate: '-20deg'},
+                            {translateX: 16},
                             {translateY: 10},
                           ],
                         },
                       ]}>
-                      {value.LABEL}
+                      {/* {value.LABEL} */}
+                      {value.LABEL.length > 20
+                        ? value.LABEL.substring(0, 20 - 3) + '...'
+                        : value.LABEL}
                     </Text>
                     {index == 0 && (
                       <Image
@@ -251,16 +267,16 @@ export default function HealthPage({navigation}) {
             </View>
           </View>
         </View>
-
         <Image
           style={{width: '100%', height: 80}}
           source={require('../../../../assets/images/shadow.png')}
         />
-        <Image
-          style={{width: '100%', height: 100, marginTop: 5}}
-          source={require('../../../../assets/images/diagram.png')}
-        />
-      </View>
+        {/* <Image
+            style={{width: '100%', height: 100, marginTop: 5}}
+            source={require('../../../../assets/images/diagram.png')}
+          /> */}
+      </ScrollView>
+
       <HealthNav navigation={navigation} />
     </SafeAreaView>
   );
