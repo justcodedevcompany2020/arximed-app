@@ -31,6 +31,8 @@ const initialState = {
   termsOfServiceData: [],
   callDoctorData: [],
   getQuestionData: [],
+  homepageAnalisysData: [],
+  homepageDirectionData: [],
 };
 
 function justDriveReducer(state = initialState, action) {
@@ -101,9 +103,12 @@ function justDriveReducer(state = initialState, action) {
       return {...state, termsOfServiceData: action.payload};
     case 'CALL_DOCTOR_SERVICE':
       return {...state, callDoctorData: action.payload};
-    // GET_QUESTION
-    case 'GET_QUESTION':
+      case 'GET_QUESTION':
       return {...state, getQuestionData: action.payload};
+    case 'GET_HOMEPAGE_ANALISYS':
+      return {...state, homepageAnalisysData: action.payload};
+    case 'GET_HOMEPAGE_DIRECTION':
+      return {...state, homepageDirectionData: action.payload};
     default:
       return state;
   }

@@ -20,7 +20,6 @@ export default function SinglePageFlower({navigation, route}) {
   const routes = navigation.getState()?.routes;
   const prevRoute = routes[routes.length - 2];
   const {data} = route.params;
-  console.log(data, 'lkk');
 
   return (
     <SafeAreaView style={{flex: 1, paddingTop: 70}}>
@@ -34,33 +33,9 @@ export default function SinglePageFlower({navigation, route}) {
         showsVerticalScrollIndicator={false}>
         <Characteristic data={data} />
         <ComentBlock header={data.DESCRIPTION} />
-        <View style={{marginTop: 15}}>
-          {/* <Text style={styles.Namestyle}>
-            {medicalTestSingleData.data?.LABEL}
-          </Text> */}
-        </View>
-        {/* <ComentBlock
-          header={'Описание обследования'}
-          description={medicalTestSingleData.data?.conttype}
-        /> */}
-        {/* <View style={styles.historyDiv}>
-          <Text style={styles.historyDivText}>История</Text>
-          {historyData.map((value, index) => {
-            return (
-              <View style={styles.block} key={index}>
-                <Text style={styles.blockText}>{value.firstText}</Text>
-                <View style={styles.secondBlock}>
-                  <Text style={[styles.secondBlockText, {color: value.color}]}>
-                    {value.secondText}
-                  </Text>
-                  <Image style={{width: 12, height: 15}} source={value.elips} />
-                </View>
-              </View>
-            );
-          })}
-        </View> */}
+        <View style={{marginTop: 15}}></View>
       </ScrollView>
-      <View style={{paddingHorizontal: 16, marginBottom: 50}}>
+      {/* <View style={{paddingHorizontal: 16, marginBottom: 50}}>
         <Button
           text={'Добавить в корзину'}
           isDisabled={false}
@@ -69,7 +44,7 @@ export default function SinglePageFlower({navigation, route}) {
           backgroundColor={'#9DC458'}
           marginBottom={50}
         />
-      </View>
+      </View> */}
     </SafeAreaView>
   );
 }

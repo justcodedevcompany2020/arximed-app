@@ -7,6 +7,8 @@ import {
   TextInput,
   View,
   ScrollView,
+  FlatList,
+  ActivityIndicator,
 } from 'react-native';
 import {SearchIcon} from '../../assets/svgs/HomeScreenSvgs';
 import {ArchimedLogo, NoResult} from '../../assets/svgs/SearchScreenSvgs';
@@ -18,10 +20,113 @@ import {globalSearch} from '../../store/actions/actionsDestination';
 
 export default function SearchScreen({navigation}) {
   const [text, setText] = useState('');
+  const [news, setNews] = useState(false);
+  const [all, setAll] = useState(true);
+  const [basket, setBasket] = useState(false);
+  const [direction, setDirection] = useState(false);
+  const [naznachenia, setNaznachenia] = useState(false);
+  const [analys, setAnalys] = useState(false);
+  const [homeservice, setHomeService] = useState(false);
+  const [doctorService, setDoctorService] = useState(false);
+  const [doctor, setDoctor] = useState(false);
+  const [data, setData] = useState([]);
+  const [page, setPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
+
   const dispatch = useDispatch();
   const {globalSearchData} = useSelector(state => state.destinationReducer);
 
-  // console.log(globalSearchData.doctors_list.data, 'llll');
+  const fetchData = async text => {
+    setIsLoading(true);
+    try {
+      dispatch(
+        globalSearch(
+          page,
+          text,
+          all
+            ? 'all'
+            : news
+            ? 'news'
+            : direction
+            ? 'direction'
+            : basket
+            ? 'basket'
+            : naznachenia
+            ? 'naznacheniya'
+            : analys
+            ? 'analise'
+            : doctorService
+            ? 'doctorService'
+            : homeservice
+            ? 'homeServices'
+            : 'doctor',
+        ),
+      );
+      {
+        all &&
+          setData([
+            ...data,
+            globalSearchData.data?.news_sales?.data,
+            globalSearchData.data?.My_notes?.data,
+            globalSearchData.data?.Direction?.data,
+            globalSearchData.data?.Naznacheniya.data,
+            globalSearchData.data?.Home_services.data,
+            globalSearchData.data?.Doctor_services.data,
+            globalSearchData.data?.Doctor_list.data,
+            globalSearchData.data?.Analises.data,
+          ]);
+      }
+      {
+        news && setData([...data, globalSearchData.data?.news_sales?.data]);
+      }
+      {
+        basket && setData([...data, globalSearchData.data?.My_notes?.data]);
+      }
+      {
+        direction && setData([...data, globalSearchData.data?.Direction?.data]);
+      }
+      {
+        naznachenia &&
+          setData([...data, globalSearchData.data?.Naznacheniya.data]);
+      }
+      {
+        analys && setData([...data, globalSearchData.data?.Analises.data]);
+      }
+      {
+        homeservice &&
+          setData([...data, globalSearchData.data?.Home_services.data]);
+      }
+      {
+        doctorService &&
+          setData([...data, globalSearchData.data?.Doctor_services.data]);
+      }
+      {
+        doctor && setData([...data, globalSearchData.data?.Doctor_list.data]);
+      }
+      setPage(page + 1);
+    } catch {}
+    setIsLoading(false);
+  };
+
+  const renderItem = ({item, index}) => {
+    return item?.map((value, index) => {
+      return (
+        <SearchResultItem
+          key={index}
+          title={value.LABEL}
+          text={value.description_serv}
+          searchText={text}
+          section={'Уведомления'}
+        />
+      );
+    });
+    //  console.log(item, 'iteemmmsakscjnՖՖՖՖՖՖ');
+  };
+
+  const renderFooter = () => {
+    if (!isLoading) return null;
+    return <ActivityIndicator size={'large'} />;
+  };
 
   return (
     <SafeAreaView style={{flex: 1, paddingBottom: 90}}>
@@ -36,61 +141,186 @@ export default function SearchScreen({navigation}) {
           style={styles.input}
           onChangeText={text => {
             setText(text);
-            dispatch(globalSearch(text));
+            fetchData(text);
           }}
           value={text}
           placeholder={'Поиск'}
         />
       </View>
+      <View>
+        <ScrollView
+          horizontal
+          style={styles.scrollview}
+          showsHorizontalScrollIndicator={false}>
+          <All
+            text={'Все'}
+            onPress={() => {
+              setAnalys(false);
+              setDirection(false);
+              setNews(false);
+              setBasket(false);
+              setNaznachenia(false);
+              setHomeService(false);
+              setDoctorService(false);
+              setDoctor(false);
+              setAll(true);
+              setData([]);
+              fetchData(text);
+            }}
+            isSelected={all ? true : false}
+          />
+          <All
+            onPress={() => {
+              setAnalys(false);
+              setDirection(false);
+              setNews(true);
+              setBasket(false);
+              setNaznachenia(false);
+              setHomeService(false);
+              setDoctorService(false);
+              setDoctor(false);
+              setAll(false);
+              setData([]);
+              fetchData(text);
+            }}
+            isSelected={news ? true : false}
+            text={'Новости и акции'}
+          />
+          <All
+            onPress={() => {
+              setAnalys(false);
+              setDirection(false);
+              setNews(false);
+              setBasket(true);
+              setNaznachenia(false);
+              setHomeService(false);
+              setDoctorService(false);
+              setDoctor(false);
+              setAll(false);
+              setData([]);
+              fetchData(text);
+            }}
+            isSelected={basket ? true : false}
+            text={'Мои записи'}
+          />
+          <All
+            onPress={() => {
+              setAnalys(false);
+              setDirection(true);
+              setNews(false);
+              setBasket(false);
+              setNaznachenia(false);
+              setHomeService(false);
+              setDoctorService(false);
+              setDoctor(false);
+              setAll(false);
+              setData([]);
+              fetchData(text);
+            }}
+            isSelected={direction ? true : false}
+            text={'Мои направления'}
+          />
+          <All
+            onPress={() => {
+              setAnalys(false);
+              setDirection(false);
+              setNews(false);
+              setBasket(false);
+              setNaznachenia(true);
+              setHomeService(false);
+              setDoctorService(false);
+              setDoctor(false);
+              setAll(false);
+              setData([]);
+              fetchData(text);
+            }}
+            isSelected={naznachenia ? true : false}
+            text={'Мои назначения'}
+          />
+          <All
+            onPress={() => {
+              setAnalys(true);
+              setDirection(false);
+              setNews(false);
+              setBasket(false);
+              setNaznachenia(false);
+              setHomeService(false);
+              setDoctorService(false);
+              setDoctor(false);
+              setAll(false);
+              setData([]);
+              fetchData(text);
+            }}
+            isSelected={analys ? true : false}
+            text={'Анализы'}
+          />
+          <All
+            onPress={() => {
+              setAnalys(false);
+              setDirection(false);
+              setNews(false);
+              setBasket(false);
+              setNaznachenia(false);
+              setHomeService(true);
+              setDoctorService(false);
+              setDoctor(false);
+              setAll(false);
+              setData([]);
+              fetchData(text);
+            }}
+            isSelected={homeservice ? true : false}
+            text={'Услуги надом'}
+          />
+          <All
+            onPress={() => {
+              setAnalys(false);
+              setDirection(false);
+              setNews(false);
+              setBasket(false);
+              setNaznachenia(false);
+              setHomeService(false);
+              setDoctorService(true);
+              setDoctor(false);
+              setAll(false);
+              setData([]);
+              fetchData(text);
+            }}
+            isSelected={doctorService ? true : false}
+            text={'Услуги врачей'}
+          />
+          <All
+            onPress={() => {
+              setAnalys(false);
+              setDirection(false);
+              setNews(false);
+              setBasket(false);
+              setNaznachenia(false);
+              setHomeService(false);
+              setDoctorService(false);
+              setDoctor(true);
+              setAll(false);
+              setData([]);
+              fetchData(text);
+            }}
+            isSelected={doctor ? true : false}
+            text={'Врачи'}
+          />
+        </ScrollView>
+      </View>
       {!text ? (
         <View>
-          <ScrollView
-            horizontal
-            style={styles.scrollview}
-            showsHorizontalScrollIndicator={false}>
-            <All text={'Все'} isSelected />
-            <All text={'Анализы'} />
-            <All text={'Обследования'} />
-            <All text={'Новости'} />
-          </ScrollView>
           <Text style={styles.famous}>Популярное</Text>
           <ActionCardsContainer navigation={navigation} />
         </View>
-      ) : text !== 'Archimed' ? (
-        <ScrollView
-          style={{marginTop: 10, paddingHorizontal: 20}}
-          showsVerticalScrollIndicator={false}>
-          {globalSearchData?.analize_complex?.data?.map((value, index) => {
-            return (
-              <SearchResultItem
-                key={index}
-                title={value.NAME}
-                text={value.PRINT_MEMO}
-                searchText={text}
-                section={'Уведомления'}
-              />
-            );
-          })}
-        </ScrollView>
       ) : (
-        <View>
-          <ScrollView
-            horizontal
-            style={styles.scrollview}
-            showsHorizontalScrollIndicator={false}>
-            <All text={'Все'} isSelected />
-            <All text={'Анализы'} />
-            <All text={'Обследования'} />
-            <All text={'Новости'} />
-          </ScrollView>
-          <View style={styles.noResultContainer}>
-            <NoResult />
-            <ArchimedLogo />
-            <Text style={styles.noResult}>
-              Нет результатов по вашему поиску
-            </Text>
-          </View>
-        </View>
+        <FlatList
+          data={data}
+          renderItem={renderItem}
+          keyExtractor={(item, index) => index}
+          onEndReached={fetchData}
+          onEndReachedThreshold={0.1}
+          ListFooterComponent={renderFooter}
+        />
       )}
     </SafeAreaView>
   );

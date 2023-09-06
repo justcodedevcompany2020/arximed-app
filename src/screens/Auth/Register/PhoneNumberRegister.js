@@ -138,7 +138,7 @@ export default function PhoneNumberRegister({navigation}) {
       <View style={{marginHorizontal: 10}}>
         <Button
           text={'Далее'}
-          isDisabled={isDisabled}
+          isDisabled={phone ? false : true}
           color={'white'}
           backgroundColor={'#9DC458'}
           onPress={() => {

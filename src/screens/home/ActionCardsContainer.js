@@ -12,13 +12,13 @@ export default function ActionCardsContainer({navigation}) {
       horizontal
       style={{height: '100%', marginTop: 15, marginLeft: 20}}
       showsHorizontalScrollIndicator={false}>
-      <ActionCard
+      {/* <ActionCard
         text={'Онлайн консультация'}
         backgroundColor={'#F0FAC6'}
         path={require('../../assets/animations/1_icon_2.json')}
         navigate={() => navigation.navigate('MyNotesScreen')}
         seconds={1300}
-      />
+      /> */}
       <ActionCard
         text={'Сдать анализы'}
         path={require('../../assets/animations/6.json')}

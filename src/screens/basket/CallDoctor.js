@@ -22,7 +22,7 @@ export default function CallDoctor({navigation, route}) {
   const dispatch = useDispatch();
   const {callDoctorData} = useSelector(state => state.justDriveReducer);
 
- console.log(callDoctorData.data);
+  console.log(callDoctorData.data);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -82,9 +82,10 @@ export default function CallDoctor({navigation, route}) {
           color={'white'}
           backgroundColor={'#9DC458'}
           marginBottom={20}
-          onPress={() =>{
-            dispatch(addBasketFunction('home_services', ))
-            navigation.navigate('OrderScreen', {hide: hide})}}
+          onPress={() => {
+            dispatch(addBasketFunction('home_services'));
+            navigation.navigate('OrderScreen', {hide: hide});
+          }}
         />
       </View>
     </SafeAreaView>

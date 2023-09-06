@@ -768,8 +768,6 @@ export const callDoctorService = ({adress, description, polygone}) => {
   } catch (error) {}
 };
 
-
-
 export const getQuestioms = () => {
   try {
     return async dispatch => {
@@ -790,6 +788,62 @@ export const getQuestioms = () => {
         .then(resp => {
           dispatch({
             type: 'GET_QUESTION',
+            payload: resp,
+          });
+        })
+        .catch(err => console.error(err));
+    };
+  } catch (error) {}
+};
+
+export const getHomePageAnalisys = () => {
+  try {
+    return async dispatch => {
+      const token = await AsyncStorage.getItem('token');
+      const Auth = 'Bearer ' + token;
+      let url = `https://archimed.justcode.am/api/get_analis_limit3`;
+      let requestOptions = {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: Auth,
+        },
+      };
+      fetch(url, requestOptions)
+        .then(resp => {
+          return resp.json();
+        })
+        .then(resp => {
+          dispatch({
+            type: 'GET_HOMEPAGE_ANALISYS',
+            payload: resp,
+          });
+        })
+        .catch(err => console.error(err));
+    };
+  } catch (error) {}
+};
+
+export const getHomePageDirection = () => {
+  try {
+    return async dispatch => {
+      const token = await AsyncStorage.getItem('token');
+      const Auth = 'Bearer ' + token;
+      let url = `https://archimed.justcode.am/api/my_basket_record_limit3`;
+      let requestOptions = {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: Auth,
+        },
+      };
+      fetch(url, requestOptions)
+        .then(resp => {
+          return resp.json();
+        })
+        .then(resp => {
+          dispatch({
+            type: 'GET_HOMEPAGE_DIRECTION',
             payload: resp,
           });
         })

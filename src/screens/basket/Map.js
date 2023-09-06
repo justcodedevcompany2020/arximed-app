@@ -39,6 +39,14 @@ export default function MapScreen({navigation, route}) {
           source={require('../../assets/images/position.png')}
           point={{lat: 40.177623, lon: 44.51252}}
         />
+        <Polygon
+          fillColor="red"
+          points={[
+            {lat: 40.177623, lon: 44.51252},
+            {lat: 40.177623, lon: 44.51252},
+            {lat: 40.177623, lon: 44.51252},
+          ]}
+        />
         {/* <Circle center={{lat: 40.177623, lon: 44.51252}} radius={300} /> */}
       </YaMap>
       <Address navigation={navigation} hide={route.params.hide} />

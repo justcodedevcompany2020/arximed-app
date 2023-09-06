@@ -181,12 +181,16 @@ export const getDirectionData = () => {
   } catch (error) {}
 };
 
-export const globalSearch = value => {
+export const globalSearch = (page, value, type) => {
+  console.log(type, 'type');
   try {
     return async dispatch => {
       const token = await AsyncStorage.getItem('token');
       const Auth = 'Bearer ' + token;
-      let url = `https://archimed.justcode.am/api/search`;
+      let url =
+        page === 1
+          ? `https://archimed.justcode.am/api/get_global_search`
+          : `https://archimed.justcode.am/api/get_global_search?page=${page}`;
       let requestOptions = {
         method: 'POST',
         headers: {
@@ -194,9 +198,11 @@ export const globalSearch = value => {
           Authorization: Auth,
         },
         body: JSON.stringify({
-          text: value,
+          searchText: value,
+          search_type: type,
         }),
       };
+      console.log({searchText: value, searchType: type}, 'kkk');
       fetch(url, requestOptions)
         .then(resp => {
           return resp.json();

@@ -32,10 +32,6 @@ export default function SinglePage({navigation}) {
       <ScrollView
         style={styles.scrollview}
         showsVerticalScrollIndicator={false}>
-        {/* <Characteristic /> */}
-        {/* {comentData.map((value, index) => {
-            return <ComentBlock key={index} header={value.header} />;
-          })} */}
         <View style={{marginTop: 15}}>
           <Text style={styles.Namestyle}>
             {medicalTestSingleData.data?.LABEL}

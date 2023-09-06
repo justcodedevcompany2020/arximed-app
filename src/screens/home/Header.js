@@ -15,6 +15,9 @@ export default function HomeHeader({navigation}) {
     dispatch(getUserInfo());
   }, []);
 
+
+  console.log(userInfo, 'userInfo')
+
   return (
     <View
       style={{

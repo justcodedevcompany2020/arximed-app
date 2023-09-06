@@ -12,11 +12,13 @@ import {BasketIconGreen} from '../../../../assets/svgs/HomeScreenSvgs';
 import Svg, {Path} from 'react-native-svg';
 import HealthNav from './HealthNav';
 import {
+  getAboutAnalyses,
   getFlowerData,
   getMedicalTestParmasSinglePage,
 } from '../../../../store/actions/actionsAnalysis';
 import {useSelector, useDispatch} from 'react-redux';
 import {ScrollView} from 'react-native-gesture-handler';
+import ComentBlock from '../Single/ComentBlock';
 
 export default function HealthPage({navigation}) {
   const angleBetween = (2 * Math.PI) / 10;
@@ -24,13 +26,16 @@ export default function HealthPage({navigation}) {
   const x = distanceFromCenter * Math.cos(angleBetween);
   const y = distanceFromCenter * Math.sin(angleBetween);
   const dispatch = useDispatch();
-  const {flowerdata} = useSelector(state => state.analysisReducer);
+  const {flowerdata, aboutAnalysesData} = useSelector(
+    state => state.analysisReducer,
+  );
 
   useEffect(() => {
     dispatch(getFlowerData());
+    dispatch(getAboutAnalyses());
   }, []);
 
-  console.log(flowerdata, 'jkF');
+  console.log(aboutAnalysesData, 'lk');
 
   return (
     <SafeAreaView style={{flex: 1, paddingTop: 50}}>
@@ -121,8 +126,8 @@ export default function HealthPage({navigation}) {
                           zIndex: 55555,
                           width: '50%',
                           transform: [
-                            {rotate: '-20deg'},
-                            {translateX: 24},
+                            {rotate: '-100deg'},
+                            {translateX: 10},
                             {translateY: 10},
                           ],
                         },
@@ -130,45 +135,45 @@ export default function HealthPage({navigation}) {
                           zIndex: 55555,
                           width: '50%',
                           transform: [
-                            {rotate: '160deg'},
-                            {translateX: 22},
-                            {translateY: 10},
+                            {rotate: '-20deg'},
+                            {translateX: -7},
+                            {translateY: -7},
                           ],
                         },
                         index == 3 && {
                           zIndex: 55555,
                           width: '50%',
                           transform: [
-                            {rotate: '-25deg'},
+                            {rotate: '65deg'},
                             {translateX: 16},
-                            {translateY: 10},
+                            {translateY: -10},
                           ],
                         },
                         index == 4 && {
                           zIndex: 55555,
                           width: '50%',
                           transform: [
-                            {rotate: '140deg'},
-                            {translateX: 5},
-                            {translateY: 10},
+                            {rotate: '-40deg'},
+                            {translateX: 15},
+                            {translateY: -10},
                           ],
                         },
                         index == 5 && {
                           zIndex: 55555,
                           width: '100%',
                           transform: [
-                            {rotate: '-110deg'},
-                            {translateX: -10},
-                            {translateY: 10},
+                            {rotate: '70deg'},
+                            {translateX:10 },
+                            {translateY: -10},
                           ],
                         },
                         index == 6 && {
                           zIndex: 55555,
                           width: '50%',
                           transform: [
-                            {rotate: '-140deg'},
-                            {translateX: -9},
-                            {translateY: 15},
+                            {rotate: '30deg'},
+                            {translateX: 9},
+                            {translateY: -10},
                           ],
                         },
                         index == 7 && {
@@ -176,7 +181,7 @@ export default function HealthPage({navigation}) {
                           width: '50%',
                           transform: [
                             {rotate: '-20deg'},
-                            {translateX: 20},
+                            {translateX: 10},
                             {translateY: 10},
                           ],
                         },
@@ -184,8 +189,8 @@ export default function HealthPage({navigation}) {
                           zIndex: 55555,
                           width: '50%',
                           transform: [
-                            {rotate: '-70deg'},
-                            {translateX: -5},
+                            {rotate: '10deg'},
+                            {translateX: 15},
                             {translateY: 14},
                           ],
                         },
@@ -193,8 +198,8 @@ export default function HealthPage({navigation}) {
                           zIndex: 55555,
                           width: '50%',
                           transform: [
-                            {rotate: '-20deg'},
-                            {translateX: 16},
+                            {rotate: '-110deg'},
+                            {translateX: -3},
                             {translateY: 10},
                           ],
                         },
@@ -258,12 +263,10 @@ export default function HealthPage({navigation}) {
                 );
               })}
 
-              <TouchableOpacity>
-                <Image
-                  style={{width: 70, height: 70}}
-                  source={require('../../../../assets/images/health/center.png')}
-                />
-              </TouchableOpacity>
+              <Image
+                style={{width: 70, height: 70}}
+                source={require('../../../../assets/images/health/center.png')}
+              />
             </View>
           </View>
         </View>
@@ -271,10 +274,9 @@ export default function HealthPage({navigation}) {
           style={{width: '100%', height: 80}}
           source={require('../../../../assets/images/shadow.png')}
         />
-        {/* <Image
-            style={{width: '100%', height: 100, marginTop: 5}}
-            source={require('../../../../assets/images/diagram.png')}
-          /> */}
+        <View style={{paddingHorizontal: 16}}>
+          <ComentBlock header={aboutAnalysesData?.data} />
+        </View>
       </ScrollView>
 
       <HealthNav navigation={navigation} />
@@ -364,46 +366,58 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     position: 'absolute',
     borderRadius: 30,
-    transform: [{translateX: -75}, {translateY: 120}],
+    transform: [{translateX: -45}, {translateY: 155}],
+    width: 70,
+    height: 40,
   },
   petalsixth: {
     justifyContent: 'center',
     alignItems: 'center',
     position: 'absolute',
     borderRadius: 30,
-    transform: [{translateX: -82}, {translateY: 55}, {rotate: '-72deg'}],
+    transform: [{translateX: -72}, {translateY: 90}, {rotate: '-72deg'}],
+    width: 70,
+    height: 40,
   },
   petalseventh: {
     justifyContent: 'center',
     alignItems: 'center',
     position: 'absolute',
     borderRadius: 30,
-    transform: [{translateX: -100}, {translateY: -18}],
+    transform: [{translateX: -60}, {translateY: 27}],
+    width: 70,
+    height: 40,
   },
   petaleightth: {
     justifyContent: 'center',
     alignItems: 'center',
     position: 'absolute',
     borderRadius: 30,
-    transform: [{translateX: -25}, {translateY: -65}],
+    transform: [{translateX:-9}, {translateY: -21}],
+    width: 70,
+    height: 40,
   },
   petaleninghth: {
     justifyContent: 'center',
     alignItems: 'center',
     position: 'absolute',
     borderRadius: 30,
-    transform: [{translateX: 15}, {translateY: -85}],
+    transform: [{translateX: 55}, {translateY: -30}],
+    width: 70,
+    height: 40,
   },
   petaletenth: {
     justifyContent: 'center',
     alignItems: 'center',
     position: 'absolute',
     borderRadius: 30,
-    transform: [{translateX: 105}, {translateY: -45}, {rotate: '75deg'}],
+    transform: [{translateX: 115}, {translateY: 5}, {rotate: '75deg'}],
+    width: 70,
+    height: 40,
   },
   petalText: {
     position: 'absolute',
-    fontSize: 8,
+    fontSize: 10,
     fontWeight: '600',
     color: 'white',
   },

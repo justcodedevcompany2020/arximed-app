@@ -2,6 +2,7 @@ import React from 'react';
 import {TouchableOpacity, StyleSheet, Text, View} from 'react-native';
 import {RedCalendar} from '../../assets/svgs/HomeScreenSvgs';
 import Button from '../../components/Button';
+
 export default function Referral() {
   return (
     <TouchableOpacity style={styles.container}>

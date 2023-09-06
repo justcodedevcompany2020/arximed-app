@@ -44,7 +44,6 @@ const styles = StyleSheet.create({
   },
   coinText: {
     fontSize: 16,
-
     fontWeight: '400',
   },
 });

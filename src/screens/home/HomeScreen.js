@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   ScrollView,
   View,
@@ -16,10 +16,11 @@ import Referrals from './Referrals';
 import SearchButton from './SearchButton';
 import News from './News';
 import About from './About';
-import {getDoctorsList} from '../../store/actions/actions';
 import {useDispatch, useSelector} from 'react-redux';
+import {getHomePageAnalisys} from '../../store/actions/actions';
 
 export default function HomeScreen({navigation}) {
+
   return (
     <SafeAreaView style={{flex: 1, width: '100%'}}>
       <ImageBackground

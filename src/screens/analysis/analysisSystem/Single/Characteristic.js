@@ -79,6 +79,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     color: '#000000',
   },
+
   leftSmallText: {
     fontSize: 12,
     lineHeight: 14,

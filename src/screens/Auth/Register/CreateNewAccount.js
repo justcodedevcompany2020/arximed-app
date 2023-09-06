@@ -21,7 +21,7 @@ import {
 } from '../../../store/actions/actions';
 
 export default function CreateNewAccount({navigation}) {
-  // const token = useSelector(state => state.auth.token);
+  // const token = tor(state => state.auth.token);
   const [isDisabled, setIsDisabled] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedCity, setSelectedCity] = useState('');

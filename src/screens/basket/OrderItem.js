@@ -45,6 +45,9 @@ export default function OrderItem({text, price, mandatory, id}) {
       <TouchableOpacity activeOpacity={0.6}>
         <View style={styles.deleteBox}>
           <GreyTrash />
+
+
+
         </View>
       </TouchableOpacity>
     ) : (

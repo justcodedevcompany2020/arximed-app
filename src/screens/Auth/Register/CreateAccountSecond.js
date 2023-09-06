@@ -182,6 +182,11 @@ export default function CreateAccountSecond({navigation, route}) {
           blur={() => setIsDisabled(false)}
         />
       </ScrollView>
+      {showEmailError && (
+        <Text style={styles.errorText}>
+          *Данное поле обязательно для заполнения
+        </Text>
+      )}
       {(showPopup || showPopup1) && <Blurview />}
       <Popup
         isVisible={showPopup}
@@ -216,25 +221,27 @@ export default function CreateAccountSecond({navigation, route}) {
         // onPress={onContinue}
 
         onPress={() => {
-          // let isEmailValid = validateEmail(email);
-          // if (!isEmailValid) {
-          //   setShowEmailError(true);
-          //   return;
-          // }
-          dispatch(
-            registeredFunction(
-              name,
-              surname,
-              middleName,
-              registerPhoneNumber,
-              date,
-              genderRequest,
-            ),
-          );
-          navigation.navigate('RegisterValidation', {
-            login: false,
-            phone: null,
-          });
+          let isEmailValid = validateEmail(email);
+          if (!isEmailValid) {
+            setShowEmailError(true);
+            return;
+          }
+          if (name && email && gender && date && surname && middleName) {
+            dispatch(
+              registeredFunction(
+                name,
+                surname,
+                middleName,
+                registerPhoneNumber,
+                date,
+                genderRequest,
+              ),
+            );
+            navigation.navigate('RegisterValidation', {
+              login: false,
+              phone: null,
+            });
+          }
         }}
       />
     </SafeAreaView>
@@ -254,5 +261,9 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     lineHeight: 10,
     marginTop: 25,
+  },
+  errorText: {
+    color: 'red',
+    fontSize:12
   },
 });
