@@ -62,54 +62,15 @@ export default function SearchScreen({navigation}) {
             : 'doctor',
         ),
       );
-      {
-        all &&
-          setData([
-            ...data,
-            globalSearchData.data?.news_sales?.data,
-            globalSearchData.data?.My_notes?.data,
-            globalSearchData.data?.Direction?.data,
-            globalSearchData.data?.Naznacheniya.data,
-            globalSearchData.data?.Home_services.data,
-            globalSearchData.data?.Doctor_services.data,
-            globalSearchData.data?.Doctor_list.data,
-            globalSearchData.data?.Analises.data,
-          ]);
-      }
-      {
-        news && setData([...data, globalSearchData.data?.news_sales?.data]);
-      }
-      {
-        basket && setData([...data, globalSearchData.data?.My_notes?.data]);
-      }
-      {
-        direction && setData([...data, globalSearchData.data?.Direction?.data]);
-      }
-      {
-        naznachenia &&
-          setData([...data, globalSearchData.data?.Naznacheniya.data]);
-      }
-      {
-        analys && setData([...data, globalSearchData.data?.Analises.data]);
-      }
-      {
-        homeservice &&
-          setData([...data, globalSearchData.data?.Home_services.data]);
-      }
-      {
-        doctorService &&
-          setData([...data, globalSearchData.data?.Doctor_services.data]);
-      }
-      {
-        doctor && setData([...data, globalSearchData.data?.Doctor_list.data]);
-      }
-      setPage(page + 1);
+        setPage(page + 1);
     } catch {}
     setIsLoading(false);
   };
 
+  console.log(globalSearchData);
+
   const renderItem = ({item, index}) => {
-    return item?.map((value, index) => {
+    return item.map((value, index) => {
       return (
         <SearchResultItem
           key={index}
@@ -120,7 +81,6 @@ export default function SearchScreen({navigation}) {
         />
       );
     });
-    //  console.log(item, 'iteemmmsakscjnՖՖՖՖՖՖ');
   };
 
   const renderFooter = () => {
@@ -180,8 +140,12 @@ export default function SearchScreen({navigation}) {
               setDoctorService(false);
               setDoctor(false);
               setAll(false);
-              setData([]);
-              fetchData(text);
+
+              {
+                globalSearchData.data?.news_sales?.length === 0
+                  ? setData([])
+                  : fetchData(text);
+              }
             }}
             isSelected={news ? true : false}
             text={'Новости и акции'}
@@ -197,8 +161,12 @@ export default function SearchScreen({navigation}) {
               setDoctorService(false);
               setDoctor(false);
               setAll(false);
-              setData([]);
-              fetchData(text);
+              console.log(globalSearchData?.data.My_notes.length == 0, 'lllll');
+              {
+                globalSearchData.data?.My_notes.length === 0
+                  ? setData([])
+                  : fetchData(text);
+              }
             }}
             isSelected={basket ? true : false}
             text={'Мои записи'}
@@ -314,7 +282,7 @@ export default function SearchScreen({navigation}) {
         </View>
       ) : (
         <FlatList
-          data={data}
+          data={globalSearchData}
           renderItem={renderItem}
           keyExtractor={(item, index) => index}
           onEndReached={fetchData}

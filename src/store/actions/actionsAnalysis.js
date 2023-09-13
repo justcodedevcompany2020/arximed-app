@@ -330,8 +330,6 @@ export const getMedicalTestParmasSinglePage = test_id => {
   } catch (error) {}
 };
 
-
-
 export const getFlowerData = value => {
   try {
     return async dispatch => {
@@ -357,8 +355,6 @@ export const getFlowerData = value => {
   } catch (error) {}
 };
 
-
-
 export const getAboutAnalyses = () => {
   try {
     return async dispatch => {
@@ -376,6 +372,31 @@ export const getAboutAnalyses = () => {
         .then(resp => {
           dispatch({
             type: 'ABOUT_ANALYSES',
+            payload: resp,
+          });
+        })
+        .catch(err => console.error(err));
+    };
+  } catch (error) {}
+};
+
+export const callPhoneNumber = () => {
+  try {
+    return async dispatch => {
+      let url = `https://archimed.justcode.am/api/get_Moscow_clinic_phone`;
+      let requestOptions = {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
+      fetch(url, requestOptions)
+        .then(resp => {
+          return resp.json();
+        })
+        .then(resp => {
+          dispatch({
+            type: 'PHONE_NUMBER_CLINIC',
             payload: resp,
           });
         })

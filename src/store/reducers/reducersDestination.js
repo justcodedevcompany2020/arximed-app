@@ -29,7 +29,15 @@ function destinationReducer(state = initialState, action) {
     case 'GET_DIRECT_DATA':
       return {...state, directionData: action.payload};
     case 'GLOBAL_SEARCHING':
-      return {...state, globalSearchData: action.payload};
+      console.log(action.payload, 'sdjncjndkjnck');
+      return {
+        ...state,
+        globalSearchData: [
+          ...state.globalSearchData,
+          action.payload.data.Analises.data,
+          action.payload.data.Doctor_list.data,
+        ],
+      };
     default:
       return state;
   }

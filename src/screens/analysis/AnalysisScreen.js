@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   ScrollView,
   View,
   ImageBackground,
   StyleSheet,
   Text,
+  Linking,
 } from 'react-native';
 import SearchButton from '../home/SearchButton';
 import AnalysisSlider from './AnalysisSlider';
@@ -15,6 +16,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import {
   getMedicalTest,
   getMedicalTestComplex,
+  callPhoneNumber,
 } from '../../store/actions/actionsAnalysis';
 
 let data = [
@@ -45,7 +47,7 @@ let data = [
   {
     id: 4,
     text: 'Система коррекции здоровья',
-    navName: '',
+    navName: 'Health',
     image: require('../../assets/images/medical-kit.png'),
     width: 20,
     height: 20,
@@ -66,16 +68,16 @@ let data = [
     width: 20,
     height: 20,
   },
+  // {
+  //   id: 7,
+  //   text: 'Онлайн чат с регистратурой',
+  //   navName: 'chat',
+  //   image: require('../../assets/images/professional.png'),
+  //   width: 20,
+  //   height: 20,
+  // },
   {
     id: 7,
-    text: 'Онлайн чат с регистратурой',
-    navName: 'chat',
-    image: require('../../assets/images/professional.png'),
-    width: 20,
-    height: 20,
-  },
-  {
-    id: 8,
     text: 'Пройти чекап',
     navName: 'ComplexesFirstPage',
     image: require('../../assets/images/health1.png'),
@@ -86,6 +88,18 @@ let data = [
 
 export default function AnalysisScreen({navigation}) {
   const dispatch = useDispatch();
+
+  const {phoneNumberClinicData} = useSelector(state => state.analysisReducer);
+
+  console.log(phoneNumberClinicData, 'phoneeeewbhebk');
+
+  useEffect(() => {
+    dispatch(callPhoneNumber());
+  }, []);
+
+  const makePhoneCall = phoneNumber => {
+    Linking.openURL(`tel:${phoneNumber}`);
+  };
 
   return (
     <SafeAreaView style={{flex: 1, width: '100%'}}>
@@ -106,15 +120,17 @@ export default function AnalysisScreen({navigation}) {
             {data.map((value, index) => {
               return (
                 <AnalysisNavigate
-                  onPress={
+                  onPress={() => {
                     value.navName
                       ? () => {
                           dispatch(getMedicalTestComplex());
                           dispatch(getMedicalTest());
                           navigation.navigate(value.navName);
                         }
-                      : null
-                  }
+                      : null;
+                    value.text === 'Позвонить в клинику' &&
+                      makePhoneCall(`+${phoneNumberClinicData.data[0].inn}`);
+                  }}
                   image={value.image}
                   key={index}
                   text={value.text}

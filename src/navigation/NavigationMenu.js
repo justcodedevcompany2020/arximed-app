@@ -48,6 +48,7 @@ import CardAddDone from '../screens/profile/SingleProfile/AddCard/CardAddDone';
 import CancelEntry from '../screens/profile/MyNotes/CancelEntry';
 import ReasonComent from '../screens/profile/MyNotes/ReasonComent';
 import ReasonOfCancel from '../screens/profile/MyNotes/ReasonOfCancel';
+import FeedBackPage from '../screens/more/FeedBackPage';
 //components
 import HeaderTitle from './HeaderTitle';
 //icons
@@ -622,6 +623,21 @@ const MoreNavigator = () => {
           headerTransparent: true,
           headerLeft: () => (
             <HeaderTitle navigation={navigation} title={'Личные данные'} left />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="FeedBackScreen"
+        component={FeedBackPage}
+        options={({navigation}) => ({
+          title: '',
+          headerTransparent: true,
+          headerLeft: () => (
+            <HeaderTitle
+              navigation={navigation}
+              title={'Связаться с нами '}
+              left
+            />
           ),
         })}
       />

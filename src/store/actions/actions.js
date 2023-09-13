@@ -851,3 +851,31 @@ export const getHomePageDirection = () => {
     };
   } catch (error) {}
 };
+
+export const getHomeService = () => {
+  try {
+    return async dispatch => {
+      const token = await AsyncStorage.getItem('token');
+      const Auth = 'Bearer ' + token;
+      let url = `https://archimed.justcode.am/api/get_home_service`;
+      let requestOptions = {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: Auth,
+        },
+      };
+      fetch(url, requestOptions)
+        .then(resp => {
+          return resp.json();
+        })
+        .then(resp => {
+          dispatch({
+            type: 'GET_HOMESERVICE',
+            payload: resp,
+          });
+        })
+        .catch(err => console.error(err));
+    };
+  } catch (error) {}
+};

@@ -4,23 +4,10 @@ import {HorizontalGreyLine} from '../../assets/svgs/NotificationScreenSvgs';
 import {NextIcon} from '../../assets/svgs/SearchScreenSvgs';
 
 const CustomText = props => {
-  const text = props.text.split('-').join(' ').split(' ');
+  const text = props.text;
   return (
     <Text style={props.title ? styles.title : styles.text}>
-      {text.map((text, i) => {
-        if (
-          text.startsWith(props.searchText) ||
-          text.startsWith(props.searchText.toLowerCase()) ||
-          text.startsWith(props.searchText.toUpperCase())
-        ) {
-          return (
-            <Text key={i} style={{color: '#2A7BF4'}}>
-              {text}{' '}
-            </Text>
-          );
-        }
-        return `${text} `;
-      })}
+      <Text style={{color: '#2A7BF4'}}>{text} </Text>
     </Text>
   );
 };

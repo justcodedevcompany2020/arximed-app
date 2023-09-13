@@ -57,7 +57,6 @@ export default function HealthPage({navigation}) {
             onPress={() => navigation.navigate('BasketNavigator')}>
             <BasketIconGreen />
           </TouchableOpacity>
-          {/*  */}
           <TouchableOpacity>
             <Svg
               width={28}
@@ -105,7 +104,6 @@ export default function HealthPage({navigation}) {
                       index == 7 && styles.petaleightth,
                       index == 8 && styles.petaleninghth,
                       index == 9 && styles.petaletenth,
-
                       {top: y, left: x},
                     ]}>
                     <Text

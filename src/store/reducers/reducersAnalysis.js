@@ -13,6 +13,7 @@ const initialState = {
   medicalTestSingleData: [],
   flowerdata: [],
   aboutAnalysesData: [],
+  phoneNumberClinicData: [],
 };
 
 function analysisReducer(state = initialState, action) {
@@ -45,6 +46,8 @@ function analysisReducer(state = initialState, action) {
       return {...state, flowerdata: action.payload};
     case 'ABOUT_ANALYSES':
       return {...state, aboutAnalysesData: action.payload};
+    case 'PHONE_NUMBER_CLINIC':
+      return {...state, phoneNumberClinicData: action.payload};
     default:
       return state;
   }

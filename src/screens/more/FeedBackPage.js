@@ -1,23 +1,29 @@
-import {SafeAreaView, StyleSheet, TextInput, Text, View} from 'react-native';
-import React, {useState} from 'react';
-import FeedBackInputs from '../../../components/FeedBackBlocks/FeedBackInputs';
-import Button from '../../../components/Button';
+import {
+  SafeAreaView,
+  StyleSheet,
+  TextInput,
+  Text,
+  View,
+  Image,
+} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import FeedBackInputs from '../../components/FeedBackBlocks/FeedBackInputs';
+import Button from '../../components/Button';
 import {ScrollView} from 'react-native';
-import {CommentIcon} from '../../../assets/svgs/HomeScreenSvgs';
-import {useEffect} from 'react';
-import {postRequest} from '../../../api/RequestHelpers';
-import Popup from '../../../components/Popup';
-import Blurview from '../../../components/Blur';
-import {sendFeedBack} from '../../../store/actions/actions';
+import {CommentIcon} from '../../assets/svgs/HomeScreenSvgs';
+// import {postRequest} from '../../../api/RequestHelpers';
+import Popup from '../../components/Popup';
+import Blurview from '../../components/Blur';
+import {sendFeedBack} from '../../store/actions/actions';
 import {useSelector, useDispatch} from 'react-redux';
 
 export default function FeedBackPage({navigation, route}) {
-  const {login} = route.params ?? false;
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [comment, setComment] = useState('');
   const [isDisabled, setIsDisabled] = useState(true);
   const [showPopup, setShowPopup] = useState('');
+  const [second, setSecond] = useState(false);
   const dispatch = useDispatch();
   const {feedBackData} = useSelector(state => state.justDriveReducer);
 
@@ -31,9 +37,37 @@ export default function FeedBackPage({navigation, route}) {
 
   async function onPressSend() {
     dispatch(sendFeedBack(name, email, comment));
+
     if (feedBackData.data.message == 'Feedback Created') {
-      navigation.navigate('FeedBackSecond', {login: login});
+      setSecond(true);
     }
+  }
+
+  if (second) {
+    return (
+      <SafeAreaView style={styles.containerSecond}>
+        <Image
+          style={{width: '100%', height: 220}}
+          source={require('../../assets/images/11111.png')}
+        />
+        <Text style={styles.bigText}>Обратная связь</Text>
+        <Text style={styles.smallText}>
+          Ваше обращение будет рассмотрено в течение суток. Спасибо, что
+          обратились к нам!
+        </Text>
+        <View style={{marginBottom: 50}}>
+          <Button
+            text={'Далее'}
+            color={'white'}
+            backgroundColor={'#9DC458'}
+            isDisabled={isDisabled}
+            onPress={() => {
+              navigation.navigate('MoreScreen');
+            }}
+          />
+        </View>
+      </SafeAreaView>
+    );
   }
 
   return (
@@ -48,7 +82,7 @@ export default function FeedBackPage({navigation, route}) {
         </View>
         <FeedBackInputs
           text={'Введите ваше имя'}
-          image={require('../../../assets/images/name.png')}
+          image={require('../../assets/images/name.png')}
           heightIcon={20}
           widthIcon={20}
           placeholderName={'Ваше имя'}
@@ -57,7 +91,7 @@ export default function FeedBackPage({navigation, route}) {
         />
         <FeedBackInputs
           text={'Введите ваш email'}
-          image={require('../../../assets/images/email.png')}
+          image={require('../../assets/images/email.png')}
           heightIcon={20}
           widthIcon={25}
           placeholderName={'Ваша почта'}
@@ -86,6 +120,15 @@ export default function FeedBackPage({navigation, route}) {
             onChangeText={setComment}
           />
         </View>
+        <View style={{marginBottom: 50}}>
+          <Button
+            text={'Отправить'}
+            color={'white'}
+            backgroundColor={'#9DC458'}
+            isDisabled={isDisabled}
+            onPress={onPressSend}
+          />
+        </View>
       </ScrollView>
       <Popup
         isVisible={showPopup}
@@ -96,17 +139,35 @@ export default function FeedBackPage({navigation, route}) {
         onPressBtn={() => setShowPopup(false)}
         buttonTextColor={'#007AFF'}
       />
-      <Button
-        text={'Отправить'}
-        color={'white'}
-        backgroundColor={'#9DC458'}
-        isDisabled={isDisabled}
-        onPress={onPressSend}
-      />
       {showPopup && <Blurview />}
     </SafeAreaView>
   );
 }
+
+// const styles = StyleSheet.create({
+//   container: {
+//     width: '100%',
+//     flex: 1,
+//     backgroundColor: 'white',
+//     paddingTop: 27,
+//     paddingHorizontal: 20,
+//     justifyContent: 'center',
+//   },
+//   bigText: {
+//     fontSize: 24,
+//     fontWeight: '600',
+//     lineHeight: 30,
+//     color: '#000000',
+//     textAlign: 'center',
+//   },
+//   smallText: {
+//     fontSize: 14,
+//     fontWeight: '400',
+//     lineHeight: 24,
+//     color: '#000000',
+//     textAlign: 'center',
+//   },
+// });
 
 const styles = StyleSheet.create({
   container: {
@@ -145,5 +206,27 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     lineHeight: 10,
     marginTop: 25,
+  },
+  containerSecond: {
+    width: '100%',
+    flex: 1,
+    backgroundColor: 'white',
+    paddingTop: 27,
+    paddingHorizontal: 20,
+    justifyContent: 'center',
+  },
+  bigText: {
+    fontSize: 24,
+    fontWeight: '600',
+    lineHeight: 30,
+    color: '#000000',
+    textAlign: 'center',
+  },
+  smallText: {
+    fontSize: 14,
+    fontWeight: '400',
+    lineHeight: 24,
+    color: '#000000',
+    textAlign: 'center',
   },
 });
