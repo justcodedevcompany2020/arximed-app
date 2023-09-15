@@ -69,6 +69,8 @@ export default function Calendar() {
     console.log(selectedDay.format('YYYY-MM-DD'));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  
   return (
     <LinearGradient
       colors={['#FF4E4E', '#A1E825']}
@@ -130,7 +132,7 @@ export default function Calendar() {
           dispatch(
             doctorVisitTime(
               subject_id_doctors,
-              exam_id_doctors,
+              11 ,
               day.dateString,
               day.dateString,
             ),

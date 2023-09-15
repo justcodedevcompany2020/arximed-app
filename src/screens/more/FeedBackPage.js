@@ -38,9 +38,9 @@ export default function FeedBackPage({navigation, route}) {
   async function onPressSend() {
     dispatch(sendFeedBack(name, email, comment));
 
-    if (feedBackData.data.message == 'Feedback Created') {
-      setSecond(true);
-    }
+    // if (feedBackData.data.message == 'Feedback Created') {
+    setSecond(true);
+    // }
   }
 
   if (second) {

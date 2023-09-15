@@ -8,7 +8,7 @@ export default function TwoButtons({navigation, navLinkFirst, navLinkSecond}) {
       style={{width: '100%', paddingLeft: 5, paddingRight: 5, marginTop: 20}}>
       <TouchableOpacity
         // onPress={() => navigation.navigate(navLinkFirst)}
-        onPress={() => navigation.navigate('CreateNewAccount')}
+         onPress={() => navigation.navigate('CreateNewAccount')}
         style={styles.greenButton}>
         <Svg
           width="16"

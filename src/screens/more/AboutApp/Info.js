@@ -35,8 +35,7 @@ export default function Info({navigation, route}) {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  console.log(data.data.page_name, 'mmmm');
+  console.log(aplicationData, 'mmmm');
 
   return (
     <SafeAreaView style={styles.container}>
@@ -45,7 +44,12 @@ export default function Info({navigation, route}) {
         showsVerticalScrollIndicator={false}>
         <Text style={styles.title}>{data.data?.title}</Text>
         <Text style={{color: 'black', lineHeight: 24, marginBottom: 30}}>
-          {data?.data?.text}
+          {/* {data?.data?.text} */}
+          {item.title === 'Правила пользования приложением'
+            ? aplicationData?.data?.text
+            : item.title === 'Политика конфиденциальности'
+            ? pivacyPolicyData?.data?.text
+            : termsOfServiceData?.data?.text}
         </Text>
       </ScrollView>
     </SafeAreaView>

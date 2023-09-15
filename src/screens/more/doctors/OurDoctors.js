@@ -39,24 +39,13 @@ export default function OurDoctors({navigation}) {
     userInfo,
     cityName,
   } = useSelector(state => state.justDriveReducer);
-  const [selectedCity, setSelectedCity] = useState(cityName);
- 
+  const [selectedCity, setSelectedCity] = useState(
+    cityName ? cityName : 'Москва',
+  );
+  const [isLoading, setIsLoading] = useState(false);
 
   const renderItem = (value, index) => {
-    return (
-      <Doctor
-        key={index}
-        // doctorName={`${value.Fam_doctor} ${value.om_doctor}`}
-        navigation={navigation}
-        // doctorInfo={
-        //   value.docter_service
-        //     ? value?.doctor_service[0].specialisation_name
-        //     : ''
-        // }
-        // image={value.photo}
-        data={value}
-      />
-    );
+    return <Doctor key={index} navigation={navigation} data={value} />;
   };
 
   return (

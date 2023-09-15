@@ -100,6 +100,98 @@ export default function ConsultationScreen({navigation, route}) {
               </View>
             </View>
           </View>
+          <View style={{flexDirection: 'row'}}>
+            <View style={{marginHorizontal: 15, alignItems: 'center'}}>
+              <Text style={styles.day}>
+                {doctorTimeData?.data[0]?.day.split('-')[2]}
+              </Text>
+              <Text style={styles.month}>
+                {doctorTimeData?.data[0]?.day.split('-')[1] == '01' && 'январь'}
+                {doctorTimeData?.data[0]?.day.split('-')[1] == '02' &&
+                  'февраль'}
+                {doctorTimeData?.data[0]?.day.split('-')[1] == '03' && 'март'}
+                {doctorTimeData?.data[0]?.day.split('-')[1] == '04' && 'апрель'}
+                {doctorTimeData?.data[0]?.day.split('-')[1] == '05' && 'май'}
+                {doctorTimeData?.data[0]?.day.split('-')[1] == '06' && 'июнь'}
+                {doctorTimeData?.data[0]?.day.split('-')[1] == '07' && 'июль'}
+                {doctorTimeData?.data[0]?.day.split('-')[1] == '08' && 'август'}
+                {doctorTimeData?.data[0]?.day.split('-')[1] == '09' &&
+                  'сентябрь'}
+                {doctorTimeData?.data[0]?.day.split('-')[1] == '10' &&
+                  'октябрь'}
+                {doctorTimeData?.data[0]?.day.split('-')[1] == '11' && 'ноябрь'}
+                {doctorTimeData?.data[0]?.day.split('-')[1] == '12' &&
+                  'декабрь'}
+              </Text>
+            </View>
+            <VerticalLine />
+            <View style={{marginLeft: 10, width: '90%'}}>
+              <Text style={styles.name}>
+                {' '}
+                {doctorsSinglePageData?.data[0]?.Fam_doctor}{' '}
+                {doctorsSinglePageData?.data[0]?.om_doctor},{' '}
+                {
+                  doctorsSinglePageData?.data[0]?.doctor_service[0]
+                    ?.specialisation_name
+                }
+              </Text>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  marginTop: 5,
+                }}>
+                <RedTimeIcon />
+                <Text style={styles.time}>{timeConsultation}</Text>
+              </View>
+            </View>
+          </View>
+          <View style={{flexDirection: 'row'}}>
+            <View style={{marginHorizontal: 15, alignItems: 'center'}}>
+              <Text style={styles.day}>
+                {doctorTimeData?.data[0]?.day.split('-')[2]}
+              </Text>
+              <Text style={styles.month}>
+                {doctorTimeData?.data[0]?.day.split('-')[1] == '01' && 'январь'}
+                {doctorTimeData?.data[0]?.day.split('-')[1] == '02' &&
+                  'февраль'}
+                {doctorTimeData?.data[0]?.day.split('-')[1] == '03' && 'март'}
+                {doctorTimeData?.data[0]?.day.split('-')[1] == '04' && 'апрель'}
+                {doctorTimeData?.data[0]?.day.split('-')[1] == '05' && 'май'}
+                {doctorTimeData?.data[0]?.day.split('-')[1] == '06' && 'июнь'}
+                {doctorTimeData?.data[0]?.day.split('-')[1] == '07' && 'июль'}
+                {doctorTimeData?.data[0]?.day.split('-')[1] == '08' && 'август'}
+                {doctorTimeData?.data[0]?.day.split('-')[1] == '09' &&
+                  'сентябрь'}
+                {doctorTimeData?.data[0]?.day.split('-')[1] == '10' &&
+                  'октябрь'}
+                {doctorTimeData?.data[0]?.day.split('-')[1] == '11' && 'ноябрь'}
+                {doctorTimeData?.data[0]?.day.split('-')[1] == '12' &&
+                  'декабрь'}
+              </Text>
+            </View>
+            <VerticalLine />
+            <View style={{marginLeft: 10, width: '90%'}}>
+              <Text style={styles.name}>
+                {' '}
+                {doctorsSinglePageData?.data[0]?.Fam_doctor}{' '}
+                {doctorsSinglePageData?.data[0]?.om_doctor},{' '}
+                {
+                  doctorsSinglePageData?.data[0]?.doctor_service[0]
+                    ?.specialisation_name
+                }
+              </Text>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  marginTop: 5,
+                }}>
+                <RedTimeIcon />
+                <Text style={styles.time}>{timeConsultation}</Text>
+              </View>
+            </View>
+          </View>
           {/* {isOnline && (
             <View style={styles.online}>
               <Text style={styles.onlineText}>Онлайн</Text>

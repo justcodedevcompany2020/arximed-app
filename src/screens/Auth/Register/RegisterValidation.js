@@ -173,8 +173,10 @@ export default function RegisterValidation({navigation, route}) {
       .then(resp => {
         console.log(resp, 'confirm');
         setRes(resp);
+        console.log('llllll', resp);
         if (resp.MyToken) {
           storeUser(resp.MyToken);
+
           navigation.navigate('CreateNewAccount');
         }
       });

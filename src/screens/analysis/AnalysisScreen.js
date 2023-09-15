@@ -120,17 +120,16 @@ export default function AnalysisScreen({navigation}) {
             {data.map((value, index) => {
               return (
                 <AnalysisNavigate
-                  onPress={() => {
-                    value.navName
+                  onPress={
+                    value.navName != ''
                       ? () => {
                           dispatch(getMedicalTestComplex());
                           dispatch(getMedicalTest());
                           navigation.navigate(value.navName);
                         }
-                      : null;
-                    value.text === 'Позвонить в клинику' &&
-                      makePhoneCall(`+${phoneNumberClinicData.data[0].inn}`);
-                  }}
+                      : () =>
+                          makePhoneCall(`+${phoneNumberClinicData.data[0].inn}`)
+                  }
                   image={value.image}
                   key={index}
                   text={value.text}
