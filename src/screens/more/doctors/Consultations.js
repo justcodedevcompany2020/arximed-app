@@ -5,7 +5,6 @@ export default function Consultations({data, navigation}) {
   return data.map((value, index) => {
     return (
       <Consultation
-   
         key={index}
         consultation={value.name_exam}
         price={value.priceAmount}

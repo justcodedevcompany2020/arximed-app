@@ -12,9 +12,9 @@ export default function Records({navigation}) {
     dispatch(getHomePageDirection());
   }, []);
 
-  // console.log(homepageDirectionData.data, 'k;k');
+  console.log(homepageDirectionData.data, 'k;k');
 
-   return (
+  return (
     <>
       <TitleArrow
         text={'Записи'}
@@ -24,7 +24,7 @@ export default function Records({navigation}) {
         return (
           <Record
             key={index}
-            name={'Онлайн консультация'}
+            name={value.parent.LABEL}
             isOnline
             navigation={navigation}
           />

@@ -22,6 +22,8 @@ export default function MakeAnAppointment({navigation}) {
     state => state.justDriveReducer,
   );
 
+  console.log(doctorTimeData, 'kmijkj');
+
   return (
     <SafeAreaView style={{flex: 1, paddingBottom: 100}}>
       <ImageBackground
