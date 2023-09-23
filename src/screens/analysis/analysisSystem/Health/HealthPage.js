@@ -36,7 +36,6 @@ export default function HealthPage({navigation}) {
   }, []);
 
   console.log(aboutAnalysesData, 'lk');
-
   return (
     <SafeAreaView style={{flex: 1, paddingTop: 50}}>
       <ImageBackground
@@ -115,8 +114,8 @@ export default function HealthPage({navigation}) {
                           zIndex: 55555,
                           width: '30%',
                           transform: [
-                            {rotate: '90deg'},
-                            {translateX: 22},
+                            {rotate: '0deg'},
+                            {translateX: 0},
                             {translateY: 14},
                           ],
                         },
@@ -125,7 +124,7 @@ export default function HealthPage({navigation}) {
                           width: '50%',
                           transform: [
                             {rotate: '-100deg'},
-                            {translateX: 10},
+                            {translateX: 0},
                             {translateY: 10},
                           ],
                         },
@@ -133,23 +132,23 @@ export default function HealthPage({navigation}) {
                           zIndex: 55555,
                           width: '50%',
                           transform: [
-                            {rotate: '-20deg'},
-                            {translateX: -7},
-                            {translateY: -7},
+                            {rotate: '65deg'},
+                            {translateX: -3},
+                            {translateY: 8},
                           ],
                         },
                         index == 3 && {
                           zIndex: 55555,
-                          width: '50%',
+                          width: '65%',
                           transform: [
                             {rotate: '65deg'},
-                            {translateX: 16},
+                            {translateX: 12},
                             {translateY: -10},
                           ],
                         },
                         index == 4 && {
                           zIndex: 55555,
-                          width: '50%',
+                          width: '60%',
                           transform: [
                             {rotate: '-40deg'},
                             {translateX: 15},
@@ -160,46 +159,48 @@ export default function HealthPage({navigation}) {
                           zIndex: 55555,
                           width: '100%',
                           transform: [
-                            {rotate: '70deg'},
-                            {translateX:10 },
+                            {rotate: '65deg'},
+                            {translateX: 25 },
                             {translateY: -10},
                           ],
                         },
                         index == 6 && {
                           zIndex: 55555,
-                          width: '50%',
+                          width: '60%',
                           transform: [
-                            {rotate: '30deg'},
+                            {rotate: '35deg'},
                             {translateX: 9},
-                            {translateY: -10},
+                            {translateY: -15},
                           ],
                         },
                         index == 7 && {
                           zIndex: 55555,
-                          width: '50%',
+                          width: '60%',
                           transform: [
-                            {rotate: '-20deg'},
+                            {rotate: '70deg'},
                             {translateX: 10},
-                            {translateY: 10},
+                            {translateY: -10},
                           ],
                         },
                         index == 8 && {
                           zIndex: 55555,
-                          width: '50%',
+                          width: '60%',
                           transform: [
-                            {rotate: '10deg'},
-                            {translateX: 15},
+                            {rotate: '-75deg'},
+                            {translateX: -5},
                             {translateY: 14},
                           ],
+                          textAlign: 'center'
                         },
                         index == 9 && {
                           zIndex: 55555,
-                          width: '50%',
+                          width: '60%',
                           transform: [
                             {rotate: '-110deg'},
                             {translateX: -3},
                             {translateY: 10},
                           ],
+                          textAlign: 'center'
                         },
                       ]}>
                       {/* {value.LABEL} */}
@@ -336,28 +337,28 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     position: 'absolute',
     borderRadius: 30,
-    transform: [{translateX: 105}, {translateY: 25}],
+    transform: [{translateX: 102}, {translateY: 25}],
   },
   petalSecond: {
     justifyContent: 'center',
     alignItems: 'center',
     position: 'absolute',
     borderRadius: 30,
-    transform: [{translateX: 125}, {translateY: 85}, {rotate: '144deg'}],
+    transform: [{translateX: 120}, {translateY: 83}, {rotate: '144deg'}],
   },
   petalthird: {
     justifyContent: 'center',
     alignItems: 'center',
     position: 'absolute',
     borderRadius: 30,
-    transform: [{translateX: 75}, {translateY: 130}],
+    transform: [{translateX: 70}, {translateY: 130}, {rotate: '0deg'}],
   },
   petalfourth: {
     justifyContent: 'center',
     alignItems: 'center',
     position: 'absolute',
     borderRadius: 30,
-    transform: [{translateX: 10}, {translateY: 138}, {rotate: '-144deg'}],
+    transform: [{translateX: 6}, {translateY: 138}, {rotate: '-146deg'}],
   },
   petalFifth: {
     justifyContent: 'center',
@@ -415,7 +416,7 @@ const styles = StyleSheet.create({
   },
   petalText: {
     position: 'absolute',
-    fontSize: 10,
+    fontSize: 12,
     fontWeight: '600',
     color: 'white',
   },

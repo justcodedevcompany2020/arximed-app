@@ -83,7 +83,7 @@ export const registeredFunction = (
 export const getDoctorsList = (page, next_url, filter, city) => {
   console.log(city);
   return async dispatch => {
-    dispatch({type: 'FETCH_ITEMS_REQUEST'});
+    dispatch({ type: 'FETCH_ITEMS_REQUEST' });
     const token = await AsyncStorage.getItem('token');
     const Auth = 'Bearer ' + token;
     try {
@@ -112,7 +112,7 @@ export const getDoctorsList = (page, next_url, filter, city) => {
           });
         });
     } catch (error) {
-      dispatch({type: 'FETCH_ITEMS_FAILURE', payload: error});
+      dispatch({ type: 'FETCH_ITEMS_FAILURE', payload: error });
       console.log(error, 'jkj');
     }
   };
@@ -143,7 +143,7 @@ export const newConfirmCode = phone => {
         })
         .catch(err => console.error(err));
     };
-  } catch (error) {}
+  } catch (error) { }
 };
 
 export const getCityList = () => {
@@ -168,7 +168,7 @@ export const getCityList = () => {
         })
         .catch(err => console.error(err));
     };
-  } catch (error) {}
+  } catch (error) { }
 };
 //
 
@@ -197,7 +197,7 @@ export const userAddCity = id => {
         })
         .catch(err => console.error(err));
     };
-  } catch (error) {}
+  } catch (error) { }
 };
 
 export const userRegData = data => dispatch => {
@@ -234,7 +234,7 @@ export const sendFeedBack = (name, email, description) => {
         })
         .catch(err => console.error(err));
     };
-  } catch (error) {}
+  } catch (error) { }
 };
 
 export const doctorsSinglePage = id => {
@@ -262,7 +262,7 @@ export const doctorsSinglePage = id => {
         })
         .catch(err => console.error(err));
     };
-  } catch (error) {}
+  } catch (error) { }
 };
 
 export const saveDateForConsultation = date => dispatch => {
@@ -297,7 +297,7 @@ export const getUserInfo = () => {
         })
         .catch(err => console.error(err));
     };
-  } catch (error) {}
+  } catch (error) { }
 };
 
 export const doctorVisitTime = (
@@ -308,6 +308,10 @@ export const doctorVisitTime = (
 ) => {
   try {
     return async dispatch => {
+      dispatch({
+        type: 'DOCTOR_TIME_LOADING',
+        payload: true,
+      });
       let url = `https://archimed.justcode.am/api/doctor_visit_time`;
       let requestOptions = {
         method: 'POST',
@@ -327,13 +331,17 @@ export const doctorVisitTime = (
         })
         .then(resp => {
           dispatch({
+            type: 'DOCTOR_TIME_LOADING',
+            payload: false,
+          });
+          dispatch({
             type: 'DOCTORS_VISIT_TIME',
             payload: resp,
           });
         })
         .catch(err => console.error(err));
     };
-  } catch (error) {}
+  } catch (error) { }
 };
 
 export const getExamIdDoctors = id => dispatch => {
@@ -418,7 +426,7 @@ export const getMyAllOrders = () => {
         })
         .catch(err => console.error(err));
     };
-  } catch (error) {}
+  } catch (error) { }
 };
 
 export const orderPaymentSuccessfully = order_id => {
@@ -449,7 +457,7 @@ export const orderPaymentSuccessfully = order_id => {
         })
         .catch(err => console.error(err));
     };
-  } catch (error) {}
+  } catch (error) { }
 };
 
 export const orderPaymentCancel = order_id => {
@@ -480,7 +488,7 @@ export const orderPaymentCancel = order_id => {
         })
         .catch(err => console.error(err));
     };
-  } catch (error) {}
+  } catch (error) { }
 };
 
 export const getStartInfo = () => {
@@ -508,7 +516,7 @@ export const getStartInfo = () => {
         })
         .catch(err => console.error(err));
     };
-  } catch (error) {}
+  } catch (error) { }
 };
 
 export const logoutFunction = () => {
@@ -572,7 +580,7 @@ export const updateProfileFunction = (grajdantstvo, adress, job) => {
         })
         .catch(err => console.error(err));
     };
-  } catch (error) {}
+  } catch (error) { }
 };
 
 export const getCityName = name => dispatch => {
@@ -620,7 +628,7 @@ export const commentDoctor = (
         })
         .catch(err => console.error(err));
     };
-  } catch (error) {}
+  } catch (error) { }
 };
 
 export const getAllReception = () => {
@@ -648,7 +656,7 @@ export const getAllReception = () => {
         })
         .catch(err => console.error(err));
     };
-  } catch (error) {}
+  } catch (error) { }
 };
 
 export const getAplicationUse = () => {
@@ -676,7 +684,7 @@ export const getAplicationUse = () => {
         })
         .catch(err => console.error(err));
     };
-  } catch (error) {}
+  } catch (error) { }
 };
 
 export const getPrivacyPolicy = () => {
@@ -704,7 +712,7 @@ export const getPrivacyPolicy = () => {
         })
         .catch(err => console.error(err));
     };
-  } catch (error) {}
+  } catch (error) { }
 };
 
 export const getTermsOfService = () => {
@@ -732,10 +740,10 @@ export const getTermsOfService = () => {
         })
         .catch(err => console.error(err));
     };
-  } catch (error) {}
+  } catch (error) { }
 };
 
-export const callDoctorService = ({adress, description, polygone}) => {
+export const callDoctorService = ({ adress, description, polygone }) => {
   try {
     return async dispatch => {
       const token = await AsyncStorage.getItem('token');
@@ -765,7 +773,7 @@ export const callDoctorService = ({adress, description, polygone}) => {
         })
         .catch(err => console.error(err));
     };
-  } catch (error) {}
+  } catch (error) { }
 };
 
 export const getQuestioms = () => {
@@ -793,7 +801,7 @@ export const getQuestioms = () => {
         })
         .catch(err => console.error(err));
     };
-  } catch (error) {}
+  } catch (error) { }
 };
 
 export const getHomePageAnalisys = () => {
@@ -821,7 +829,7 @@ export const getHomePageAnalisys = () => {
         })
         .catch(err => console.error(err));
     };
-  } catch (error) {}
+  } catch (error) { }
 };
 
 export const getHomePageDirection = () => {
@@ -849,7 +857,7 @@ export const getHomePageDirection = () => {
         })
         .catch(err => console.error(err));
     };
-  } catch (error) {}
+  } catch (error) { }
 };
 
 export const getHomeService = () => {
@@ -877,5 +885,5 @@ export const getHomeService = () => {
         })
         .catch(err => console.error(err));
     };
-  } catch (error) {}
+  } catch (error) { }
 };

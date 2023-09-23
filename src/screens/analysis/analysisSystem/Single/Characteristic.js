@@ -35,14 +35,14 @@ export default function Characteristic({navigation, data}) {
       {routes.name === 'SinglePageFlower' && (
         <View style={styles.left}>
           <Text style={styles.leftBigText}>{data.CODE}</Text>
-          <Text style={styles.leftSmallText}>{data.DESCRIPTION}</Text>
+          <Text style={styles.leftSmallText}>{data.description_serv}</Text>
         </View>
       )}
 
       <View style={styles.right}>
         {routes.name === 'SinglePageFlower' && (
           <Text style={styles.rightText}>
-            {data.PRICE}
+            {data.price}
             <Text style={[styles.rightText, {color: '#7B9E45'}]}> ₽</Text>
           </Text>
         )}

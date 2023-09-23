@@ -12,7 +12,7 @@ import { RedCalendar, RedPhone, RedPushPin } from '../../assets/svgs/BasketSvgs'
 import { ArrowRight, MIcon } from '../../assets/svgs/MoreScreenSvgs';
 import Button from '../../components/Button';
 
-export default function AboutClinic() {
+export default function AboutClinic({navigation}) {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={{ paddingHorizontal: 20 }} showsVerticalScrollIndicator={false}>
@@ -55,6 +55,7 @@ export default function AboutClinic() {
           text={'Запись на прием'}
           backgroundColor={'#9DC458'}
           color={'white'}
+          onPress={() => navigation.navigate('FeedBackScreen')}
         />
       </ScrollView>
     </SafeAreaView>

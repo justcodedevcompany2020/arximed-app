@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-useless-escape */
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   KeyboardAvoidingView,
   SafeAreaView,
@@ -10,21 +10,23 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import Svg, {Path} from 'react-native-svg';
+import Svg, { Path } from 'react-native-svg';
 import BigText from '../../../components/BigText';
 import IllustrationBlock from '../../../components/IllustrationBlock';
 import PhoneInput from '../../../components/PhoneInput';
 import Button from '../../../components/Button';
-import {savePhoneNumberRegister} from '../../../store/actions/actions';
-import {useDispatch} from 'react-redux';
+import { savePhoneNumberRegister } from '../../../store/actions/actions';
+import { useDispatch } from 'react-redux';
 
-export default function PhoneNumberRegister({navigation}) {
+export default function PhoneNumberRegister({ navigation }) {
   const [phone, setPhone] = useState('');
   const [active, setActive] = useState(false);
   const [actives, setActives] = useState(false);
   const [isDisabled, setIsDisabled] = useState(true);
+  const [phoneError, setPhoneError] = useState(false)
 
   useEffect(() => {
+    console.log(validatePhone(), 'aaaaaaaaaaaaaaaaaaaaa');
     if (validatePhone() && active && actives) {
       setIsDisabled(false);
     } else {
@@ -40,6 +42,33 @@ export default function PhoneNumberRegister({navigation}) {
   }
   const dispatch = useDispatch();
 
+  async function register() {
+    setPhoneError(false)
+    let url = `https://archimed.justcode.am/api/validation_register`;
+    let requestOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        phone: phone,
+      }),
+    };
+    fetch(url, requestOptions)
+      .then(resp => {
+        return resp.json();
+      })
+      .then(resp => {
+        console.log(resp);
+        if (resp.status) {
+
+          dispatch(savePhoneNumberRegister(phone));
+          navigation.navigate('CreateAccountSecond');
+        } else setPhoneError(true)
+      })
+      .catch(err => console.error(err));
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -52,6 +81,7 @@ export default function PhoneNumberRegister({navigation}) {
           width={styles.width}
         />
         <PhoneInput phone={phone} setPhone={setPhone} />
+        {phoneError && <Text style={{ color: 'red', fontSize: 12 }}>Такой пользователь уже существует</Text>}
         <View>
           <TouchableOpacity
             onPress={() => {
@@ -65,7 +95,7 @@ export default function PhoneNumberRegister({navigation}) {
               marginTop: 10,
             }}>
             {active ? (
-              <View style={{marginRight: 10, marginLeft: 10}}>
+              <View style={{ marginRight: 10, marginLeft: 10 }}>
                 <Svg
                   width="15"
                   height="15"
@@ -81,12 +111,12 @@ export default function PhoneNumberRegister({navigation}) {
             ) : (
               <View style={styles.checkSquare} />
             )}
-            <Text style={[styles.checkboxText, {color: '#696969BF'}]}>
+            <Text style={[styles.checkboxText, { color: '#696969BF' }]}>
               Я соглашаюсь с{' '}
               <Text
                 style={[
                   styles.checkboxText,
-                  {color: '#2A7BF4', marginLeft: 10},
+                  { color: '#2A7BF4', marginLeft: 10 },
                 ]}>
                 {' '}
                 политикой использования приложения
@@ -105,7 +135,7 @@ export default function PhoneNumberRegister({navigation}) {
               marginTop: 10,
             }}>
             {actives ? (
-              <View style={{marginRight: 10, marginLeft: 10}}>
+              <View style={{ marginRight: 10, marginLeft: 10 }}>
                 <Svg
                   width="15"
                   height="15"
@@ -121,12 +151,12 @@ export default function PhoneNumberRegister({navigation}) {
             ) : (
               <View style={styles.checkSquare} />
             )}
-            <Text style={[styles.checkboxText, {color: '#696969BF'}]}>
+            <Text style={[styles.checkboxText, { color: '#696969BF' }]}>
               Я соглашаюсь с{' '}
               <Text
                 style={[
                   styles.checkboxText,
-                  {color: '#2A7BF4', marginLeft: 10},
+                  { color: '#2A7BF4', marginLeft: 10 },
                 ]}>
                 {' '}
                 условиями обработки персональных данных
@@ -134,19 +164,16 @@ export default function PhoneNumberRegister({navigation}) {
             </Text>
           </TouchableOpacity>
         </View>
+        <View style={{ marginHorizontal: 10 }}>
+          <Button
+            text={'Далее'}
+            isDisabled={isDisabled}
+            color={'white'}
+            backgroundColor={'#9DC458'}
+            onPress={register}
+          />
+        </View>
       </ScrollView>
-      <View style={{marginHorizontal: 10}}>
-        <Button
-          text={'Далее'}
-          isDisabled={phone ? false : true}
-          color={'white'}
-          backgroundColor={'#9DC458'}
-          onPress={() => {
-            dispatch(savePhoneNumberRegister(phone));
-            navigation.navigate('CreateAccountSecond');
-          }}
-        />
-      </View>
     </SafeAreaView>
   );
 }

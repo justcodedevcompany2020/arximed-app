@@ -34,6 +34,7 @@ const initialState = {
   homepageAnalisysData: [],
   homepageDirectionData: [],
   homeServiceData: [],
+  doctorTimeLoading: null
 };
 
 function justDriveReducer(state = initialState, action) {
@@ -112,6 +113,8 @@ function justDriveReducer(state = initialState, action) {
       return {...state, homepageDirectionData: action.payload};
     case 'GET_HOMESERVICE':
       return {...state, homeServiceData: action.payload};
+    case 'DOCTOR_TIME_LOADING':
+      return {...state, doctorTimeLoading: action.payload}
     default:
       return state;
   }

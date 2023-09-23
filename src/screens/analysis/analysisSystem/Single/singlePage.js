@@ -1,5 +1,5 @@
 import React from 'react';
-import {useState} from 'react';
+import { useState } from 'react';
 import {
   Text,
   Image,
@@ -12,18 +12,26 @@ import SearchButton from '../../../home/SearchButton';
 import Button from '../../../../components/Button';
 import Characteristic from './Characteristic';
 import ComentBlock from './ComentBlock';
-import {SafeAreaView} from 'react-native';
-import {useSelector} from 'react-redux';
+import { SafeAreaView } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { addBasketFunction } from '../../../../store/actions/actionsAnalysis';
 
-export default function SinglePage({navigation}) {
+export default function SinglePage({ navigation }) {
   const [isDisabled, setIsDisabled] = useState(false);
   const routes = navigation.getState()?.routes;
   const prevRoute = routes[routes.length - 2];
-  const {medicalTestSingleData} = useSelector(state => state.analysisReducer);
+  const { medicalTestSingleData, examId } = useSelector(state => state.analysisReducer);
   // console.log(medicalTestSingleData, 'kjk');
 
+  const dispatch = useDispatch();
+  const addBasket = () => {
+    console.log(medicalTestSingleData.data.id,);
+    dispatch(addBasketFunction('medical_test_parameter', examId, medicalTestSingleData.data.id));
+    navigation.navigate('BasketNavigator', { screen: 'BasketScreen' })
+  };
+
   return (
-    <SafeAreaView style={{flex: 1, paddingTop: 70}}>
+    <SafeAreaView style={{ flex: 1, paddingTop: 70 }}>
       <ImageBackground
         style={styles.fixed}
         source={require('../../../../assets/background.png')}
@@ -32,7 +40,7 @@ export default function SinglePage({navigation}) {
       <ScrollView
         style={styles.scrollview}
         showsVerticalScrollIndicator={false}>
-        <View style={{marginTop: 15}}>
+        <View style={{ marginTop: 15 }}>
           <Text style={styles.Namestyle}>
             {medicalTestSingleData.data?.LABEL}
           </Text>
@@ -58,11 +66,11 @@ export default function SinglePage({navigation}) {
           })}
         </View> */}
       </ScrollView>
-      <View style={{paddingHorizontal: 16, marginBottom: 50}}>
+      <View style={{ paddingHorizontal: 16, marginBottom: 50 }}>
         <Button
           text={'Добавить в корзину'}
           isDisabled={false}
-         onPress={() => navigation.navigate('Health')}
+          onPress={addBasket}
           color={'white'}
           backgroundColor={'#9DC458'}
           marginBottom={50}

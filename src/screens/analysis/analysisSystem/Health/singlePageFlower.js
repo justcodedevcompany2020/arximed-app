@@ -14,12 +14,23 @@ import Button from '../../../../components/Button';
 import Characteristic from '../Single/Characteristic';
 import ComentBlock from '../Single/ComentBlock';
 import {useSelector, useDispatch} from 'react-redux';
+import { addBasketFunction } from '../../../../store/actions/actionsAnalysis';
 
 export default function SinglePageFlower({navigation, route}) {
   const [isDisabled, setIsDisabled] = useState(false);
   const routes = navigation.getState()?.routes;
   const prevRoute = routes[routes.length - 2];
   const {data} = route.params;
+
+  const { examId } = useSelector(state => state.analysisReducer);
+
+  const dispatch = useDispatch();
+  const addBasket = () => {
+    // console.log(data.id, examId);
+    dispatch(addBasketFunction('medical_test_parameter', examId, data.id));
+    navigation.navigate('BasketNavigator', {screen: 'BasketScreen'})
+  };
+
 
   return (
     <SafeAreaView style={{flex: 1, paddingTop: 70}}>
@@ -32,19 +43,19 @@ export default function SinglePageFlower({navigation, route}) {
         style={styles.scrollview}
         showsVerticalScrollIndicator={false}>
         <Characteristic data={data} />
-        <ComentBlock header={data.DESCRIPTION} />
+        <ComentBlock header={data.description_serv} />
         <View style={{marginTop: 15}}></View>
       </ScrollView>
-      {/* <View style={{paddingHorizontal: 16, marginBottom: 50}}>
+      <View style={{paddingHorizontal: 16, marginBottom: 50}}>
         <Button
           text={'Добавить в корзину'}
           isDisabled={false}
-          onPress={() => navigation.navigate('Health')}
+          onPress={addBasket}
           color={'white'}
           backgroundColor={'#9DC458'}
           marginBottom={50}
         />
-      </View> */}
+      </View>
     </SafeAreaView>
   );
 }
