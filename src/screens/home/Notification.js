@@ -37,6 +37,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     borderRadius: 10,
     alignItems: 'center',
+    width: '100%',
   },
   titleRow: {
     flexDirection: 'row',

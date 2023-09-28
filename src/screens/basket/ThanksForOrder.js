@@ -33,6 +33,9 @@ export default function ThanksForOrder({route, navigation}) {
     state => state.justDriveReducer,
   );
 
+  console.log(ordersPaymountData, 'lksljlkajskdj');
+  console.log(addNewOrdersData, 'lksljlkajskdj');
+
   return (
     <SafeAreaView style={styles.container}>
       <ImageBackground
@@ -92,7 +95,9 @@ export default function ThanksForOrder({route, navigation}) {
           // marginBottom={20}
           onPress={() => {
             dispatch(orderPaymentSuccessfully(addNewOrdersData.my_order_id));
-            navigation.navigate('PaymentsScreen');
+            // if (orderPaymentSuccessfully) {
+            //   navigation.navigate('PaymentsScreen');
+            // }
           }}
         />
         <Button

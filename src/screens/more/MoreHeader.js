@@ -49,6 +49,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
     color: 'black',
+    width: '80%',
   },
   userId: {
     fontSize: 12,

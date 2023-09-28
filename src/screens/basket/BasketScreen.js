@@ -32,6 +32,7 @@ export default function BasketScreen({navigation}) {
     dispatch(getBasketData());
   }, []);
 
+  //  console.log(basketData, 'basket');
   //
 
   return (
@@ -90,10 +91,7 @@ export default function BasketScreen({navigation}) {
         }
         buttonText={'Перейти к оформлению'}
         onPress={() => {
-          basketData?.data?.data?.filter(el => el)[0].parent.doctor_id
-            ? dispatch(addNewOrder('ONLINE'))
-            : dispatch(addNewOrder('OFFLINE'));
-
+          dispatch(addNewOrder('ONLINE'));
           navigation.navigate('ThanksForOrder');
         }}
       />

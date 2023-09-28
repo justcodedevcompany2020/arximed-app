@@ -109,5 +109,6 @@ const styles = StyleSheet.create({
     fontSize: 10,
     fontWeight: '500',
     color: '#949599',
+    width: '50%',
   },
 });

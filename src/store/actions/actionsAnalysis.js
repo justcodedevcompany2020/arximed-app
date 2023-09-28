@@ -267,7 +267,6 @@ export const createAnalisePageFunction = value => {
 };
 
 export const addNewOrder = pay_type => {
-  console.log(pay_type, 'opuygh');
   try {
     return async dispatch => {
       const token = await AsyncStorage.getItem('token');

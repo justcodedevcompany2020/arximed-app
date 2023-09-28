@@ -37,7 +37,6 @@ export default function ProfileSingle({navigation}) {
           source={require('../../../assets/images/profile/user.png')}
         />
         <ProfileSelection />
-        <CardsInput navigation={navigation} />
         <PersonalData />
       </ScrollView>
     </SafeAreaView>

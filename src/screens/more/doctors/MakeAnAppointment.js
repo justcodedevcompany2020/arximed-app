@@ -1,7 +1,7 @@
 import React from 'react';
-import { ActivityIndicator, ScrollView } from 'react-native';
-import { TouchableOpacity } from 'react-native';
-import { Image } from 'react-native';
+import {ActivityIndicator, ScrollView} from 'react-native';
+import {TouchableOpacity} from 'react-native';
+import {Image} from 'react-native';
 import {
   View,
   Text,
@@ -9,26 +9,25 @@ import {
   SafeAreaView,
   ImageBackground,
 } from 'react-native';
-import { RedCalendar } from '../../../assets/svgs/HomeScreenSvgs';
-import { PlaceIcon } from '../../../assets/svgs/DoctorsScreenSvgs';
+import {RedCalendar} from '../../../assets/svgs/HomeScreenSvgs';
+import {PlaceIcon} from '../../../assets/svgs/DoctorsScreenSvgs';
 import SearchButton from '../../home/SearchButton';
 import Calendar from './Calendar';
 import Reception from './Reception';
-import { useSelector, useDispatch } from 'react-redux';
-import { useEffect } from 'react';
+import {useSelector, useDispatch} from 'react-redux';
+import {useEffect} from 'react';
 
-export default function MakeAnAppointment({ navigation }) {
+export default function MakeAnAppointment({navigation}) {
   const dispatch = useDispatch();
-  const { doctorTimeData, doctorsSinglePageData, doctorTimeLoading } = useSelector(
-    state => state.justDriveReducer,
-  );
+  const {doctorTimeData, doctorsSinglePageData, doctorTimeLoading} =
+    useSelector(state => state.justDriveReducer);
 
   useEffect(() => {
     console.log(doctorTimeData, 'doctorTimeData');
-  }, [doctorTimeData])
+  }, []);
 
   return (
-    <SafeAreaView style={{ flex: 1, paddingBottom: 100 }}>
+    <SafeAreaView style={{flex: 1, paddingBottom: 100}}>
       <ImageBackground
         style={styles.fixed}
         resizeMode="cover"
@@ -38,31 +37,24 @@ export default function MakeAnAppointment({ navigation }) {
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={styles.scrollView}>
-        {/* <SearchButton navigation={navigation} /> */}
-        {/* <TouchableOpacity style={styles.location}>
-          <PlaceIcon />
-          <Text style={styles.openPopupText}>
-            Москва, нажмите чтобы сменить местоположение
-          </Text>
-        </TouchableOpacity> */}
-        {(doctorTimeData.data?.length && !doctorTimeLoading) ? (
+        {doctorTimeData.data?.length && !doctorTimeLoading ? (
           <View style={styles.doctorInfoContainer}>
             <Image
               resizeMode="contain"
-              style={{ width: 60, height: 60, borderRadius: 20 }}
+              style={{width: 60, height: 60, borderRadius: 20}}
               source={{
                 uri:
-                  `data:image/png;base64,` +
+                `data:image/png;base64,` +
                   doctorsSinglePageData.data[0].photo,
               }}
             />
-            <View style={{ marginLeft: 10 }}>
+            <View style={{marginLeft: 10}}>
               <Text style={styles.doctorName}>
                 {' '}
                 {doctorsSinglePageData?.data[0]?.Fam_doctor}{' '}
                 {doctorsSinglePageData?.data[0]?.om_doctor}
               </Text>
-              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
                 <RedCalendar />
                 <Text style={styles.aboutDoctor}>
                   {
@@ -77,12 +69,23 @@ export default function MakeAnAppointment({ navigation }) {
           ''
         )}
 
-        {doctorTimeLoading ? <ActivityIndicator size={'large'} color={'#d3d3d3'} style={{ marginTop: 20 }} /> : null}
-        {!doctorTimeLoading && (doctorTimeData.data?.length ? (
-          <Reception navigation={navigation} netZapisi />
-        ) : doctorTimeLoading == false && 
-          <Text style={{ marginTop: 30, textAlign: 'center' }}>Свободных слотов нету</Text>
-        )}
+        {doctorTimeLoading ? (
+          <ActivityIndicator
+            size={'large'}
+            color={'#d3d3d3'}
+            style={{marginTop: 20}}
+          />
+        ) : null}
+        {!doctorTimeLoading &&
+          (doctorTimeData.data?.length ? (
+            <Reception navigation={navigation} netZapisi />
+          ) : (
+            doctorTimeLoading == false && (
+              <Text style={{marginTop: 30, textAlign: 'center'}}>
+                Свободных слотов нету
+              </Text>
+            )
+          ))}
       </ScrollView>
     </SafeAreaView>
   );

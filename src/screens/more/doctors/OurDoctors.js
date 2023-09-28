@@ -84,12 +84,14 @@ export default function OurDoctors({navigation}) {
           // ListHeaderComponent={renderHeader}
           onEndReached={() => {
             setPage(page + 1);
-            dispatch(
-              getDoctorsList(
-                page,
-                `https://archimed.justcode.am/api/doctors_list?page=${page}`,
-              ),
-            );
+            if (page !== 1) {
+              dispatch(
+                getDoctorsList(
+                  page,
+                  `https://archimed.justcode.am/api/doctors_list?page=${page}`,
+                ),
+              );
+            }
 
             if (loading) {
               console.log(loading, 'jkhj');

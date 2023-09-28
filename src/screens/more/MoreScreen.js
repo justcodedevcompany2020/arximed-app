@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Text,
   ImageBackground,
+  View,
 } from 'react-native';
 import MoreField from './MoreField';
 import MoreHeader from './MoreHeader';
@@ -25,7 +26,9 @@ export default function MoreScreen({navigation}) {
         style={styles.fixed}
         source={require('../../assets/background.png')}>
         <MoreHeader navigation={navigation} />
-        <ScrollView style={{height: 700}} showsVerticalScrollIndicator={false}>
+        <ScrollView
+          style={{height: 700, marginBottom: 90}}
+          showsVerticalScrollIndicator={false}>
           <MoreField
             Icon={DoctorIcon}
             text={'Врачи'}
@@ -57,6 +60,7 @@ export default function MoreScreen({navigation}) {
             onPress={() => navigation.navigate('FAQ')}
           />
         </ScrollView>
+        <View></View>
       </ImageBackground>
     </SafeAreaView>
   );

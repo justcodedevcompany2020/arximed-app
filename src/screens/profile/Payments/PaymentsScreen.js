@@ -25,6 +25,8 @@ export default function PaymentsScreen() {
     dispatch(getMyAllOrders());
   }, []);
 
+  console.log(myOrdersData, 'lll');
+
   return (
     <SafeAreaView style={styles.container}>
       <ImageBackground
@@ -36,8 +38,6 @@ export default function PaymentsScreen() {
         style={styles.scrollView}
         showsVerticalScrollIndicator={false}>
         <PaymentsHeader />
-        {/* <Text style={styles.dataTexts}>Июль 2022</Text>
-        <DataHeader dataText={'25 Июля 2022'} /> */}
         {noData ? (
           <View
             style={{
@@ -59,14 +59,14 @@ export default function PaymentsScreen() {
                 <PaymentBlock
                   key={index}
                   firstText={
-                    value.parent.LABEL
-                      ? value.parent.LABEL
-                      : value.parent.name_exam
+                    value.parent?.LABEL
+                      ? value.parent?.LABEL
+                      : value.parent?.name_exam
                   }
                   number={
-                    value.parent.price
-                      ? value.parent.price
-                      : value.parent.priceAmount
+                    value.parent?.price
+                      ? value.parent?.price
+                      : value.parent?.priceAmount
                   }
                   textColor={
                     value.status == 'Не оплачено' ? '#FF5454' : '#7B9E45'

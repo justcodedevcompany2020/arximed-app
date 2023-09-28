@@ -6,6 +6,7 @@ import {
   getExamIdDoctors,
   getSubjectIdDoctors,
   getPriceConsultation,
+  idDoctor,
 } from '../../../store/actions/actions';
 
 export default function Consultation({
@@ -15,14 +16,17 @@ export default function Consultation({
   navigation,
   exam_id,
   subject_id,
+  id,
 }) {
   const dispatch = useDispatch();
+  
   return (
     <TouchableOpacity
       onPress={() => {
         dispatch(getExamIdDoctors(exam_id));
         dispatch(getPriceConsultation(price));
         dispatch(getSubjectIdDoctors(subject_id));
+        dispatch(idDoctor(id));
         navigation.navigate('MakeAnAppointment');
       }}
       style={styles.container}>

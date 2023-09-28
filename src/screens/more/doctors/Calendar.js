@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
-import { View, Text, StyleSheet } from 'react-native';
-import { LocaleConfig, CalendarList } from 'react-native-calendars';
-import { ArrowDownWhite } from '../../../assets/svgs/DoctorsScreenSvgs';
+import {View, Text, StyleSheet} from 'react-native';
+import {LocaleConfig, CalendarList} from 'react-native-calendars';
+import {ArrowDownWhite} from '../../../assets/svgs/DoctorsScreenSvgs';
 import moment from 'moment/moment';
-import { useSelector, useDispatch } from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {
   saveDateForConsultation,
   doctorVisitTime,
@@ -70,12 +70,13 @@ export default function Calendar() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  console.log(exam_id_doctors, subject_id_doctors);
 
   return (
     <LinearGradient
       colors={['#FF4E4E', '#A1E825']}
-      start={{ x: 0, y: 0 }}
-      end={{ x: 2, y: 0 }}
+      start={{x: 0, y: 0}}
+      end={{x: 2, y: 0}}
       style={{
         paddingTop: 120,
         borderBottomLeftRadius: 10,
@@ -132,7 +133,7 @@ export default function Calendar() {
           dispatch(
             doctorVisitTime(
               subject_id_doctors,
-              exam_id_doctors ,
+              exam_id_doctors,
               day.dateString,
               day.dateString,
               // 11,

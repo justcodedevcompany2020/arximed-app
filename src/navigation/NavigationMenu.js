@@ -143,7 +143,7 @@ export default function NavigationMenu() {
           tabBarStyle: tabBarStyle,
         })}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="chat"
         component={OnlainChat}
         options={{
@@ -158,7 +158,7 @@ export default function NavigationMenu() {
             );
           },
         }}
-      />
+      /> */}
       <Tab.Screen
         name="more"
         component={MoreNavigator}

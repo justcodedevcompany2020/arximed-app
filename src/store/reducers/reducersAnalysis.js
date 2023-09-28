@@ -14,6 +14,7 @@ const initialState = {
   flowerdata: [],
   aboutAnalysesData: [],
   phoneNumberClinicData: [],
+  doctor_id: '',
 };
 
 function analysisReducer(state = initialState, action) {
@@ -48,6 +49,8 @@ function analysisReducer(state = initialState, action) {
       return {...state, aboutAnalysesData: action.payload};
     case 'PHONE_NUMBER_CLINIC':
       return {...state, phoneNumberClinicData: action.payload};
+    case 'DOCTOR_ID':
+      return {...state, doctor_id: action.payload};
     default:
       return state;
   }

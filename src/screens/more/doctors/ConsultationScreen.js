@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 import {VerticalLine, RedTimeIcon} from '../../../assets/svgs/HomeScreenSvgs';
 import {CurrencyRub, PlaceIcon} from '../../../assets/svgs/DoctorsScreenSvgs';
-import Bonuses from '../../../components/Bonuses';
 import OrderPrice from '../../../components/OrderPrice';
 import {useSelector, useDispatch} from 'react-redux';
 import {addBasketFunction} from '../../../store/actions/actionsAnalysis';
@@ -24,8 +23,12 @@ export default function ConsultationScreen({navigation, route}) {
     exam_id_doctors,
     subject_id_doctors,
   } = useSelector(state => state.justDriveReducer);
-  const {addBasketData} = useSelector(state => state.analysisReducer);
+
+  const {addBasketData, doctor_id} = useSelector(
+    state => state.analysisReducer,
+  );
   const {isOnline} = route.params ?? false;
+  console.log(doctor_id);
   useEffect(() => {
     navigation.setOptions({
       title: isOnline
@@ -35,9 +38,10 @@ export default function ConsultationScreen({navigation, route}) {
         fontSize: 16,
       },
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const dispatch = useDispatch();
+
+  // console.log(doctorTimeData?.data[0]?.day, 'basket add doctor time');
 
   return (
     <>
@@ -79,7 +83,7 @@ export default function ConsultationScreen({navigation, route}) {
               </Text>
             </View>
             <VerticalLine />
-            <View style={{marginLeft: 10, width: '90%'}}>
+            <View style={{marginLeft: 10, width: '80%'}}>
               <Text style={styles.name}>
                 {' '}
                 {doctorsSinglePageData?.data[0]?.Fam_doctor}{' '}
@@ -100,122 +104,11 @@ export default function ConsultationScreen({navigation, route}) {
               </View>
             </View>
           </View>
-          <View style={{flexDirection: 'row'}}>
-            <View style={{marginHorizontal: 15, alignItems: 'center'}}>
-              <Text style={styles.day}>
-                {doctorTimeData?.data[0]?.day.split('-')[2]}
-              </Text>
-              <Text style={styles.month}>
-                {doctorTimeData?.data[0]?.day.split('-')[1] == '01' && 'январь'}
-                {doctorTimeData?.data[0]?.day.split('-')[1] == '02' &&
-                  'февраль'}
-                {doctorTimeData?.data[0]?.day.split('-')[1] == '03' && 'март'}
-                {doctorTimeData?.data[0]?.day.split('-')[1] == '04' && 'апрель'}
-                {doctorTimeData?.data[0]?.day.split('-')[1] == '05' && 'май'}
-                {doctorTimeData?.data[0]?.day.split('-')[1] == '06' && 'июнь'}
-                {doctorTimeData?.data[0]?.day.split('-')[1] == '07' && 'июль'}
-                {doctorTimeData?.data[0]?.day.split('-')[1] == '08' && 'август'}
-                {doctorTimeData?.data[0]?.day.split('-')[1] == '09' &&
-                  'сентябрь'}
-                {doctorTimeData?.data[0]?.day.split('-')[1] == '10' &&
-                  'октябрь'}
-                {doctorTimeData?.data[0]?.day.split('-')[1] == '11' && 'ноябрь'}
-                {doctorTimeData?.data[0]?.day.split('-')[1] == '12' &&
-                  'декабрь'}
-              </Text>
-            </View>
-            <VerticalLine />
-            <View style={{marginLeft: 10, width: '90%'}}>
-              <Text style={styles.name}>
-                {' '}
-                {doctorsSinglePageData?.data[0]?.Fam_doctor}{' '}
-                {doctorsSinglePageData?.data[0]?.om_doctor},{' '}
-                {
-                  doctorsSinglePageData?.data[0]?.doctor_service[0]
-                    ?.specialisation_name
-                }
-              </Text>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  marginTop: 5,
-                }}>
-                <RedTimeIcon />
-                <Text style={styles.time}>{timeConsultation}</Text>
-              </View>
-            </View>
-          </View>
-          <View style={{flexDirection: 'row'}}>
-            <View style={{marginHorizontal: 15, alignItems: 'center'}}>
-              <Text style={styles.day}>
-                {doctorTimeData?.data[0]?.day.split('-')[2]}
-              </Text>
-              <Text style={styles.month}>
-                {doctorTimeData?.data[0]?.day.split('-')[1] == '01' && 'январь'}
-                {doctorTimeData?.data[0]?.day.split('-')[1] == '02' &&
-                  'февраль'}
-                {doctorTimeData?.data[0]?.day.split('-')[1] == '03' && 'март'}
-                {doctorTimeData?.data[0]?.day.split('-')[1] == '04' && 'апрель'}
-                {doctorTimeData?.data[0]?.day.split('-')[1] == '05' && 'май'}
-                {doctorTimeData?.data[0]?.day.split('-')[1] == '06' && 'июнь'}
-                {doctorTimeData?.data[0]?.day.split('-')[1] == '07' && 'июль'}
-                {doctorTimeData?.data[0]?.day.split('-')[1] == '08' && 'август'}
-                {doctorTimeData?.data[0]?.day.split('-')[1] == '09' &&
-                  'сентябрь'}
-                {doctorTimeData?.data[0]?.day.split('-')[1] == '10' &&
-                  'октябрь'}
-                {doctorTimeData?.data[0]?.day.split('-')[1] == '11' && 'ноябрь'}
-                {doctorTimeData?.data[0]?.day.split('-')[1] == '12' &&
-                  'декабрь'}
-              </Text>
-            </View>
-            <VerticalLine />
-            <View style={{marginLeft: 10, width: '90%'}}>
-              <Text style={styles.name}>
-                {' '}
-                {doctorsSinglePageData?.data[0]?.Fam_doctor}{' '}
-                {doctorsSinglePageData?.data[0]?.om_doctor},{' '}
-                {
-                  doctorsSinglePageData?.data[0]?.doctor_service[0]
-                    ?.specialisation_name
-                }
-              </Text>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  marginTop: 5,
-                }}>
-                <RedTimeIcon />
-                <Text style={styles.time}>{timeConsultation}</Text>
-              </View>
-            </View>
-          </View>
-          {/* {isOnline && (
-            <View style={styles.online}>
-              <Text style={styles.onlineText}>Онлайн</Text>
-            </View>
-          )} */}
           <View style={styles.priceContainer}>
             <Text style={styles.price}>{priceConsultation}</Text>
             <CurrencyRub />
           </View>
         </TouchableOpacity>
-
-        {/* <Bonuses /> */}
-
-        {/* {!isOnline && (
-          <View style={styles.addressContainer}>
-            <Text style={styles.priom}>
-              Прием осуществляется только в клинике по адресу
-            </Text>
-            <View style={{flexDirection: 'row', marginTop: 10}}>
-              <PlaceIcon />
-              <Text style={styles.address}>ул. Вавилова, д. 68 корп. 2</Text>
-            </View>
-          </View>
-        )} */}
       </SafeAreaView>
       <OrderPrice
         price={priceConsultation}
@@ -224,10 +117,10 @@ export default function ConsultationScreen({navigation, route}) {
             addBasketFunction(
               'doctor_service',
               exam_id_doctors,
-              subject_id_doctors,
+              doctor_id,
               `${timeConsultation}:00`,
               `${timeConsultation}:00`,
-              doctorTimeData?.data[0]?.day.split('-')[2],
+              doctorTimeData?.data[0]?.day,
             ),
           );
           if (addBasketData.message) {

@@ -19,8 +19,6 @@ export default function DoctorProfile({navigation, route}) {
   const {doctorsSinglePageData, getAllReceptionData, doctorCommentData} =
     useSelector(state => state.justDriveReducer);
 
-  
-
   return (
     <SafeAreaView style={{flex: 1, width: '100%'}}>
       <ImageBackground

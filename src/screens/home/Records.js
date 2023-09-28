@@ -12,8 +12,6 @@ export default function Records({navigation}) {
     dispatch(getHomePageDirection());
   }, []);
 
-  console.log(homepageDirectionData.data, 'k;k');
-
   return (
     <>
       <TitleArrow

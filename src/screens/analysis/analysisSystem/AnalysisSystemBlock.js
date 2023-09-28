@@ -22,19 +22,12 @@ export default function AnalysisSystemBlock({navigation, data, onPress}) {
     <TouchableOpacity style={styles.container} onPress={onPress}>
       <Text style={styles.firstName}>{data.LABEL}</Text>
       <View style={styles.bottomBlock}>
-        <View style={styles.dateBlock}>
-          {/* <Image
-            style={{width: 10, height: 10}}
-            source={require('../../../assets/images/akarcalendar.png')}
-          />
-         <Text style={styles.dateBlockText}>2 дня</Text>  */}
-        </View>
+        <View style={styles.dateBlock}></View>
         <View>
           <Text style={styles.coinFirst}>
             {data.price}
             <Text style={[styles.coinFirst, {color: '#7B9E45'}]}> ₽</Text>
           </Text>
-          {/* <Text style={styles.secondCoinText}>5 000 ₽</Text> */}
         </View>
       </View>
       <View style={styles.bottomBlock}>
@@ -84,6 +77,7 @@ const styles = StyleSheet.create({
     fontWeight: '400',
   },
   bottomBlock: {
+    width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',

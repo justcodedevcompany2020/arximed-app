@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {ScrollView} from 'react-native';
 import {TouchableOpacity} from 'react-native';
 import {
@@ -24,11 +24,13 @@ import Blurview from '../../components/Blur';
 import Popup from '../../components/Popup';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useDispatch, useSelector} from 'react-redux';
-import {logoutFunction} from '../../store/actions/actions';
+import {logoutFunction, getCount} from '../../store/actions/actions';
 
 export default function ProfileScreen({navigation}) {
   const [showPopup, setShowPopup] = useState(false);
   const dispatch = useDispatch();
+  const {keysCount} = useSelector(state => state.justDriveReducer);
+  console.log(keysCount, 'keysCount');
 
   async function logout() {
     dispatch(logoutFunction());
@@ -36,6 +38,10 @@ export default function ProfileScreen({navigation}) {
     await AsyncStorage.removeItem('pin');
     navigation.navigate('WelcomePage');
   }
+
+  useEffect(() => {
+    dispatch(getCount());
+  }, []);
 
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -55,7 +61,7 @@ export default function ProfileScreen({navigation}) {
               Svg={PassAnalyzesIcon}
               firstText={''}
               name={'Анализы и обследования'}
-              secondText={'3'}
+              secondText={keysCount.notify_count}
               navigation={navigation}
               navname={'AnalyzesAndExamination'}
             />
@@ -63,7 +69,7 @@ export default function ProfileScreen({navigation}) {
               Svg={MyRecords}
               firstText={''}
               name={'Мои записи'}
-              secondText={'10'}
+              secondText={keysCount.my_zapis}
               navigation={navigation}
               navname={'MyNotesScreen'}
             />
@@ -71,7 +77,7 @@ export default function ProfileScreen({navigation}) {
               Svg={Appointments}
               firstText={''}
               name={'Назначения'}
-              secondText={'3'}
+              secondText={keysCount.my_naznachenia}
               navigation={navigation}
               navname={'MyPrescriptionsNavigator'}
             />
@@ -79,7 +85,7 @@ export default function ProfileScreen({navigation}) {
               Svg={PassAnalyzesIcon}
               firstText={''}
               name={'Направления'}
-              secondText={'10'}
+              secondText={keysCount.napravlenia}
               navigation={navigation}
               navname={'DirectionScreen'}
             />
@@ -87,19 +93,19 @@ export default function ProfileScreen({navigation}) {
               Svg={Notifications}
               firstText={''}
               name={'Уведомления'}
-              secondText={'3'}
+              secondText={keysCount.notify_count}
               navigation={navigation}
               navname={'Notifications'}
             />
             <ProfileBlock
               Svg={Payments}
-              firstText={'120 000'}
+              firstText={keysCount?.basket_order_price}
               name={'Платежи'}
               secondText={'₽'}
               navigation={navigation}
               navname={'PaymentsScreen'}
             />
-            <ProfileBlock
+            {/* <ProfileBlock
               Svg={ProgramService}
               firstText={''}
               name={'Программа обслуживания'}
@@ -114,7 +120,7 @@ export default function ProfileScreen({navigation}) {
               secondText={'20'}
               navigation={navigation}
               navname={'BonusPrograms'}
-            />
+            /> */}
           </View>
           <TouchableOpacity
             style={styles.whiteButton}
