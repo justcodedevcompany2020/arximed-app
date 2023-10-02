@@ -62,7 +62,7 @@ export default function SearchScreen({navigation}) {
             : 'doctor',
         ),
       );
-        setPage(page + 1);
+      setPage(page + 1);
     } catch {}
     setIsLoading(false);
   };

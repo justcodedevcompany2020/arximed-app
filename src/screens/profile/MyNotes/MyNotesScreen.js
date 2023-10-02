@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -7,19 +7,31 @@ import {
   ImageBackground,
   ScrollView,
 } from 'react-native';
-import { NoNotificationsIcon } from '../../../assets/svgs/NotificationScreenSvgs';
+import {NoNotificationsIcon} from '../../../assets/svgs/NotificationScreenSvgs';
 import Record from '../../home/Record';
+import {getHomePageDirection} from '../../../store/actions/actions';
+import {useDispatch, useSelector} from 'react-redux';
 
-export default function MyNotesScreen({ navigation }) {
+export default function MyNotesScreen({navigation}) {
   const noData = false;
+  const dispatch = useDispatch();
+  const {homepageDirectionData} = useSelector(state => state.justDriveReducer);
+
+  useEffect(() => {
+    dispatch(getHomePageDirection());
+  }, []);
+
   return (
     <SafeAreaView style={styles.container}>
       <ImageBackground
         style={styles.fixed}
         resizeMode="cover"
-        source={require('../../../assets/background.png')} />
-      <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
-        {noData ? (
+        source={require('../../../assets/background.png')}
+      />
+      <ScrollView
+        style={styles.scrollView}
+        showsVerticalScrollIndicator={false}>
+        {homepageDirectionData.data.length == 0 ? (
           <View
             style={{
               justifyContent: 'center',
@@ -27,48 +39,22 @@ export default function MyNotesScreen({ navigation }) {
               marginTop: 100,
             }}>
             <NoNotificationsIcon />
-            <Text
-              style={{ fontWeight: '500', color: '#1C1C1E', marginTop: 10 }}>
+            <Text style={{fontWeight: '500', color: '#1C1C1E', marginTop: 10}}>
               Нет записей
             </Text>
           </View>
         ) : (
           <>
-            <Record
-              name={'Онлайн консультация'}
-              isOnline
-              canceled
-              deactive
-              navigation={navigation}
-            />
-            <Record
-              name={'Запись к врачу Терапевту'}
-              paid
-              navigation={navigation}
-            />
-            <Record
-              name={'Онлайн консультация'}
-              isOnline
-              navigation={navigation}
-            />
-            <Record
-              name={'Запись к врачу Терапевту'}
-              disable
-              canceled
-              navigation={navigation}
-            />
-            <Record
-              name={'Запись к врачу Терапевту'}
-              disable
-              canceled
-              navigation={navigation}
-            />
-            <Record
-              name={'Запись к врачу Терапевту'}
-              paid
-              marginBottom={50}
-              navigation={navigation}
-            />
+            {homepageDirectionData.data?.map((value, index) => {
+              return (
+                <Record
+                  key={index}
+                  name={value.parent.LABEL}
+                  isOnline
+                  navigation={navigation}
+                />
+              );
+            })}
           </>
         )}
       </ScrollView>

@@ -9,43 +9,73 @@ import {
 import SurveysSingleBlock from '../ProfileAnalysis/Blocks/SurveysSingleBlock';
 import Button from '../../../components/Button';
 
-let data = [
-  {
-    id: 1,
-    image: require('../../../assets/images/profile/calendar1.png'),
-    firstText: 'Дата',
-    secondText: '12 февраля, 10:15',
-    width: 25,
-    height: 25,
-  },
-  {
-    id: 2,
-    image: require('../../../assets/images/profile/profilepic.png'),
-    firstText: 'Врач',
-    secondText: 'Алексеев И.И. ',
-    width: 25,
-    height: 25,
-  },
-  {
-    id: 3,
-    image: require('../../../assets/images/medical-equipment.png'),
-    firstText: 'Специализация',
-    secondText: 'Врач терапевт',
-    width: 25,
-    height: 25,
-  },
-  {
-    id: 4,
-    image: require('../../../assets/images/medical-file.png'),
-    firstText: 'Протокол обследования',
-    secondText: 'pdf',
-    width: 25,
-    height: 25,
-    navName: 'PdfFile',
-  },
-];
+export default function EventInformation({navigation, route}) {
+  const {value} = route.params;
 
-export default function EventInformation({navigation}) {
+  const month =
+    value.DATE_ACTUAL.split('-')[1] == '01'
+      ? 'январь'
+      : value.DATE_ACTUAL.split('-')[1] == '02'
+      ? 'февраль'
+      : value.DATE_ACTUAL.split('-')[1] == '03'
+      ? 'март'
+      : value.DATE_ACTUAL.split('-')[1] == '04'
+      ? 'апрель'
+      : value.DATE_ACTUAL.split('-')[1] == '05'
+      ? 'май'
+      : value.DATE_ACTUAL.split('-')[1] == '06'
+      ? 'июнь'
+      : value.DATE_ACTUAL.split('-')[1] == '07'
+      ? 'июль'
+      : value.DATE_ACTUAL.split('-')[1] == '08'
+      ? 'август'
+      : value.DATE_ACTUAL.split('-')[1] == '09'
+      ? 'сентябрь'
+      : value.DATE_ACTUAL.split('-')[1] == '10'
+      ? 'октябрь'
+      : value.DATE_ACTUAL.split('-')[1] == '11'
+      ? 'ноябрь'
+      : 'декабрь';
+  console.log(month);
+
+  let data = [
+    {
+      id: 1,
+      image: require('../../../assets/images/profile/calendar1.png'),
+      firstText: 'Дата',
+      secondText: `${value.DATE_ACTUAL.split('-')[2].split('T')[0]} ${month}, ${
+        value.DATE_ACTUAL.split('-')[2].split('T')[1].split(':')[0]
+      }:${value.DATE_ACTUAL.split('-')[2].split('T')[1].split(':')[1]}`,
+      width: 25,
+      height: 25,
+    },
+    {
+      id: 2,
+      image: require('../../../assets/images/profile/profilepic.png'),
+      firstText: 'Врач',
+      secondText: value.FIO_MED,
+      width: 25,
+      height: 25,
+    },
+    {
+      id: 3,
+      image: require('../../../assets/images/medical-equipment.png'),
+      firstText: 'Специализация',
+      secondText: 'Врач терапевт',
+      width: 25,
+      height: 25,
+    },
+    {
+      id: 4,
+      image: require('../../../assets/images/medical-file.png'),
+      firstText: 'Протокол обследования',
+      secondText: 'pdf',
+      width: 25,
+      height: 25,
+      navName: 'PdfFile',
+    },
+  ];
+  console.log(value, 'valll');
   return (
     <SafeAreaView style={styles.container}>
       <ImageBackground

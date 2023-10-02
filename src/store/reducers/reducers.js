@@ -36,6 +36,7 @@ const initialState = {
   homeServiceData: [],
   doctorTimeLoading: null,
   keysCount: [],
+  notificationallData: [],
 };
 
 function justDriveReducer(state = initialState, action) {
@@ -118,6 +119,8 @@ function justDriveReducer(state = initialState, action) {
       return {...state, doctorTimeLoading: action.payload};
     case 'GET_KEYS_COUNT':
       return {...state, keysCount: action.payload};
+    case 'GET_NOTIFICATION_DATA':
+      return {...state, notificationallData: action.payload};
     // GET_KEYS_COUNT
     default:
       return state;

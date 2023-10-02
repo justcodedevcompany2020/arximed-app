@@ -6,10 +6,6 @@ import Lottie from 'lottie-react-native';
 import {Provider} from 'react-redux';
 import {store} from './src/store/store';
 import {useSelector, useDispatch} from 'react-redux';
-// import YaMap from 'react-native-yamap';
-
-// YaMap.init('dfac1167-ca5f-4fa8-8984-e29dc8b60925');
-// dfac1167-ca5f-4fa8-8984-e29dc8b60925
 
 const App = () => {
   const [initialRouteName, setInitialRouteName] = useState('');
@@ -23,23 +19,23 @@ const App = () => {
   async function isFirstTime() {
     const value = await AsyncStorage.getItem('firstTime');
     console.log(value);
-    if (!value || value === 'true') {
+    if (value === 'true') {
       setInitialRouteName('WelcomeSwiper');
       await AsyncStorage.setItem('firstTime', 'true');
     } else {
       let token = await AsyncStorage.getItem('token');
-      // let isLogged = await AsyncStorage.getItem('isLogged')
-      // let pin = await AsyncStorage.getItem('pin')
-      // console.log(token, 'token');
-      // console.log(isLogged, 'isLogged');
-      // console.log(pin, 'pin');
+      let isLogged = await AsyncStorage.getItem('isLogged');
+      let pin = await AsyncStorage.getItem('pin');
+      console.log(token, 'token');
+      console.log(isLogged, 'isLogged');
+      console.log(pin, 'pin');
       setInitialRouteName('WelcomePage');
-      // if (isLogged && pin) {
-      //   console.log('PinCodeScreen');
-      //   setInitialRouteName('PinCodeScreen');
-      // } else {
-      //   console.log('WelcomePage');
-      // }
+      if (token && pin) {
+        console.log('PinCodeScreen');
+        setInitialRouteName('PinCodeScreen');
+      } else {
+        console.log('WelcomePage');
+      }
     }
     setTimeout(() => {
       setIsLoading(false);

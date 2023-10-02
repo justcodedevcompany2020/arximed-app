@@ -49,7 +49,7 @@ export default function LoginWithPhone({navigation}) {
       })
       .then(resp => {
         console.log(resp, 'login');
-        setMessage(resp.message);
+        setMessage(resp.data.message);
         if (resp.data.message == 'Code Send Your Phone') {
           navigation.navigate('RegisterValidation', {
             login: true,
@@ -58,7 +58,7 @@ export default function LoginWithPhone({navigation}) {
         }
       });
   };
-
+  console.log(message, 'message');
   // Wrong User Phone
   return (
     <SafeAreaView style={styles.container}>

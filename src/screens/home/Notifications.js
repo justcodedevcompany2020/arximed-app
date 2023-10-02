@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -6,13 +6,48 @@ import {
   StyleSheet,
   View,
   ImageBackground,
+  FlatList,
 } from 'react-native';
 import {NoNotificationsIcon} from '../../assets/svgs/NotificationScreenSvgs';
 import All from './All';
 import Notification from './Notification';
+import {useSelector, useDispatch} from 'react-redux';
+import {getNotificationData} from '../../store/actions/actions';
 
 export default function Notifications() {
-  const noData = false;
+  const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(false);
+  const {notificationallData} = useSelector(state => state.justDriveReducer);
+  const [page, setPage] = useState(1);
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+      try {
+        dispatch(getNotificationData());
+        setPage(page + 1);
+        setData([...data, ]);
+      } catch {}
+      setIsLoading(false);
+    };
+  }, []);
+
+  const renderItem = ({item, index}) => {
+    return (
+      <Notification
+        title={'Онлайн-консультация '}
+        time={'15:00'}
+        text={
+          'Онлайн консультация, запланированная на 20.07.2022 14:00 началась. Вас ожидает врач. '
+        }
+        first
+      />
+    );
+  };
+
+  console.log(notificationallData?.data?.data, 'lll');
+
   return (
     <SafeAreaView style={{flex: 1, paddingTop: 120}}>
       <ImageBackground
@@ -20,61 +55,15 @@ export default function Notifications() {
         resizeMode="cover"
         style={styles.fixed}
       />
-
-      <ScrollView
-        horizontal
-        style={styles.scrollview}
-        showsHorizontalScrollIndicator={false}>
-        <All text={'Все'} isSelected />
-        <All text={'Online'} />
-        <All text={'Назначения'} />
-        <All text={'Направления'} />
-      </ScrollView>
-      {!noData ? (
-        <ScrollView
-          style={{
-            paddingHorizontal: 20,
-            backgroundColor: 'transparent',
-            marginBottom: 90,
-          }}
-          showsVerticalScrollIndicator={false}>
-          <Notification
-            title={'Онлайн-консультация '}
-            time={'15:00'}
-            text={
-              'Онлайн консультация, запланированная на 20.07.2022 14:00 началась. Вас ожидает врач. '
-            }
-            first
-          />
-          <Notification
-            title={'Вы записаны на прием'}
-            time={'14:59'}
-            text={
-              'Филиал Петровка 20.07.2022 14:00 Врач хирург, Иван Петр Петрович.'
-            }
-          />
-          <Notification
-            title={'Запись на прием отменена'}
-            time={'14:50'}
-            text={
-              'Филиал Петровка 20.07.2022 14:00 Врач хирург, Иван Петр Петрович.'
-            }
-          />
-          <Notification
-            title={'Онлайн-консультация '}
-            time={'14:30'}
-            text={
-              'Онлайн консультация, запланированная на 20.07.2022 14:00 началась. Вас ожидает врач. '
-            }
-          />
-          <Notification
-            title={'Онлайн-консультация '}
-            time={'14:20'}
-            text={
-              'Онлайн консультация, запланированная на 20.07.2022 14:00 началась. Вас ожидает врач. '
-            }
-          />
-        </ScrollView>
+      {notificationallData?.data?.data.length > 0 ? (
+        <FlatList
+          data={globalSearchData}
+          renderItem={renderItem}
+          keyExtractor={(item, index) => index}
+          onEndReached={fetchData}
+          onEndReachedThreshold={0.1}
+          ListFooterComponent={renderFooter}
+        />
       ) : (
         <View style={styles.noNotifications}>
           <NoNotificationsIcon />

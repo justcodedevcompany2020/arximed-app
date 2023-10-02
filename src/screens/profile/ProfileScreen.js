@@ -61,7 +61,7 @@ export default function ProfileScreen({navigation}) {
               Svg={PassAnalyzesIcon}
               firstText={''}
               name={'Анализы и обследования'}
-              secondText={keysCount.notify_count}
+              secondText={keysCount.get_new_analize_count}
               navigation={navigation}
               navname={'AnalyzesAndExamination'}
             />

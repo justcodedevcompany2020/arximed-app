@@ -7,14 +7,14 @@ import {
   ScrollView,
 } from 'react-native';
 import SurveysBlock from './SurveysBlock';
-import { NoNotificationsIcon } from '../../../assets/svgs/NotificationScreenSvgs';
+import {NoNotificationsIcon} from '../../../assets/svgs/NotificationScreenSvgs';
 import {
   AnalyzesCapsule,
   ArrowLeftMini,
 } from '../../../assets/svgs/ProfileScreenSvgs';
 
-export default function SurveysScreen({ navigation }) {
-  const noData = false;
+export default function SurveysScreen({navigation}) {
+  const noData = !false;
   return (
     <>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -26,12 +26,12 @@ export default function SurveysScreen({ navigation }) {
               marginTop: 100,
             }}>
             <NoNotificationsIcon />
-            <Text style={{ fontWeight: '500', color: '#1C1C1E', marginTop: 10 }}>
+            <Text style={{fontWeight: '500', color: '#1C1C1E', marginTop: 10}}>
               Нет обследований
             </Text>
           </View>
         ) : (
-          <View style={{ marginTop: 15 }}>
+          <View style={{marginTop: 15}}>
             {[...new Array(5)].map((x, i) => (
               <SurveysBlock navigation={navigation} key={i} />
             ))}

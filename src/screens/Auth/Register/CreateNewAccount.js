@@ -181,7 +181,7 @@ export default function CreateNewAccount({navigation}) {
         color={'white'}
         backgroundColor={'#9DC458'}
         onPress={() => {
-          navigation.navigate('Menu');
+          navigation.navigate('PinCodeScreen');
         }}
       />
       {showPopup && <Blurview />}

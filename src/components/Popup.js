@@ -33,22 +33,75 @@ export default function Popup({
       <View style={styles.popupContainer}>
         <View style={styles.popupBody}>
           <Text style={styles.title}>{modalTitle}</Text>
-          {modalText && <Text style={!horizontal ? styles.modalText : { color: '#1C1C1E', textAlign: 'center', marginTop: 10 }}>{modalText}</Text>}
+          {modalText && (
+            <Text
+              style={
+                !horizontal
+                  ? styles.modalText
+                  : {color: '#1C1C1E', textAlign: 'center', marginTop: 10}
+              }>
+              {modalText}
+            </Text>
+          )}
         </View>
-        {nummberOfButtons === 1 && <TouchableOpacity onPress={onPressBtn} style={styles.btn}>
-          <Text style={[styles.btnText, { color: buttonTextColor ?? 'black' }]}>{buttonText}</Text>
-        </TouchableOpacity>}
-        {nummberOfButtons >= 2 && <View style={!horizontal && { flexDirection: 'row' }}>
-          <TouchableOpacity onPress={onPressLeftButton} style={[styles.buttonsContainer, horizontal ? { width: '100%' } : { width: '50%' }]} >
-            <Text style={[styles.btnText, { color: buttonTextColor ?? 'black' }]}>{leftButtonText}</Text>
+        {nummberOfButtons === 1 && (
+          <TouchableOpacity onPress={onPressBtn} style={styles.btn}>
+            <Text style={[styles.btnText, {color: buttonTextColor ?? 'black'}]}>
+              {buttonText}
+            </Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={onPressRightButton} style={[styles.buttonsContainer, horizontal ? { width: '100%' } : { width: '50%', borderLeftWidth: 1, borderLeftColor: '#bfbfbf' }]}>
-            <Text style={[styles.btnText, { color: buttonTextColor ?? 'black' }]}>{rightButtonText}</Text>
-          </TouchableOpacity>
-          {nummberOfButtons === 3 && <TouchableOpacity onPress={onPressThirdButton} style={[styles.buttonsContainer, horizontal ? { width: '100%' } : { width: '50%', borderLeftWidth: 1, borderLeftColor: '#bfbfbf' }]}>
-            <Text style={[styles.btnText, { color: buttonTextColor ?? 'black' }]}>{thirdButtonText}</Text>
-          </TouchableOpacity>}
-        </View>}
+        )}
+        {nummberOfButtons >= 2 && (
+          <View style={!horizontal && {flexDirection: 'row'}}>
+            <TouchableOpacity
+              onPress={onPressLeftButton}
+              style={[
+                styles.buttonsContainer,
+                horizontal ? {width: '100%'} : {width: '50%'},
+              ]}>
+              <Text
+                style={[styles.btnText, {color: buttonTextColor ?? 'black'}]}>
+                {leftButtonText}
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={onPressRightButton}
+              style={[
+                styles.buttonsContainer,
+                horizontal
+                  ? {width: '100%'}
+                  : {
+                      width: '50%',
+                      borderLeftWidth: 1,
+                      borderLeftColor: '#bfbfbf',
+                    },
+              ]}>
+              <Text
+                style={[styles.btnText, {color: buttonTextColor ?? 'black'}]}>
+                {rightButtonText}
+              </Text>
+            </TouchableOpacity>
+            {nummberOfButtons === 3 && (
+              <TouchableOpacity
+                onPress={onPressThirdButton}
+                style={[
+                  styles.buttonsContainer,
+                  horizontal
+                    ? {width: '100%'}
+                    : {
+                        width: '50%',
+                        borderLeftWidth: 1,
+                        borderLeftColor: '#bfbfbf',
+                      },
+                ]}>
+                <Text
+                  style={[styles.btnText, {color: buttonTextColor ?? 'black'}]}>
+                  {thirdButtonText}
+                </Text>
+              </TouchableOpacity>
+            )}
+          </View>
+        )}
       </View>
     </Modal>
   );

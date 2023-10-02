@@ -20,7 +20,6 @@ import {useDispatch, useSelector} from 'react-redux';
 import {getHomePageAnalisys} from '../../store/actions/actions';
 
 export default function HomeScreen({navigation}) {
-
   return (
     <SafeAreaView style={{flex: 1, width: '100%'}}>
       <ImageBackground
@@ -35,7 +34,7 @@ export default function HomeScreen({navigation}) {
           showsVerticalScrollIndicator={false}>
           <View style={{paddingHorizontal: 20}}>
             <SearchButton navigation={navigation} />
-            <HomeNotification />
+            {/* <HomeNotification /> */}
           </View>
           <ActionCardsContainer navigation={navigation} />
           <View style={{paddingHorizontal: 20}}>

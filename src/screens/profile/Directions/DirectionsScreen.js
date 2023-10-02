@@ -23,7 +23,7 @@ export default function DirectionScreen({navigation}) {
     dispatch(getDirectionData());
   }, []);
 
-  console.log(directionData, 'luhjn');
+  console.log(directionData.data?.data[0], 'luhjn');
 
   return (
     <SafeAreaView style={styles.container}>
@@ -35,8 +35,7 @@ export default function DirectionScreen({navigation}) {
       <ScrollView
         style={styles.scrollView}
         showsVerticalScrollIndicator={false}>
-        <SearchButton navigation={navigation} />
-        {noData ? (
+        {directionData.data?.data.length == 0 ? (
           <View
             style={{
               justifyContent: 'center',
@@ -50,11 +49,15 @@ export default function DirectionScreen({navigation}) {
             </Text>
           </View>
         ) : (
-          [...new Array(6)].map((x, i) => (
+          directionData.data?.data.map((value, index) => (
             <DirectionBlock
+            value={value}
+              actual={value.DATE_ACTUAL}
+              name={value.NAME}
+              fio={value.FIO_MED}
               navigation={navigation}
-              key={i}
-              marginBottom={i === 5 ? 40 : null}
+              key={index}
+              marginBottom={index === 5 ? 40 : null}
             />
           ))
         )}
@@ -67,7 +70,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: '100%',
-    paddingTop: 110,
+    paddingTop: 90,
     paddingHorizontal: 20,
   },
   fixed: {

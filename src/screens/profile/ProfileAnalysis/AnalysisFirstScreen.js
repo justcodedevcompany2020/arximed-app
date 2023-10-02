@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   TouchableOpacity,
@@ -12,18 +12,28 @@ import {
   Percent90,
   ZeroPercent,
 } from '../../../assets/svgs/HomeScreenSvgs';
-import { NoNotificationsIcon } from '../../../assets/svgs/NotificationScreenSvgs';
+import {NoNotificationsIcon} from '../../../assets/svgs/NotificationScreenSvgs';
 import {
   AnalyzesCapsule,
   ArrowLeftMini,
 } from '../../../assets/svgs/ProfileScreenSvgs';
+import {getHomePageAnalisys} from '../../../store/actions/actions';
+import {useDispatch, useSelector} from 'react-redux';
 
-export default function AnalysisFirstScreen({ navigation }) {
-  const noData = false;
+export default function AnalysisFirstScreen({navigation}) {
+  const dispatch = useDispatch();
+
+  const {homepageAnalisysData} = useSelector(state => state.justDriveReducer);
+
+  console.log(homepageAnalisysData.data.length > 0);
+
+  useEffect(() => {
+    dispatch(getHomePageAnalisys());
+  }, []);
   return (
     <>
       <ScrollView showsVerticalScrollIndicator={false}>
-        {noData ? (
+        {homepageAnalisysData.data.length == 0 ? (
           <View
             style={{
               justifyContent: 'center',
@@ -31,47 +41,32 @@ export default function AnalysisFirstScreen({ navigation }) {
               marginTop: 100,
             }}>
             <NoNotificationsIcon />
-            <Text
-              style={{ fontWeight: '500', color: '#1C1C1E', marginTop: 10 }}>
+            <Text style={{fontWeight: '500', color: '#1C1C1E', marginTop: 10}}>
               Нет Анализов
             </Text>
           </View>
         ) : (
-          <View style={{ marginTop: 15 }}>
-            <AnalysisCard
-              Svg={ZeroPercent}
-              name={'VIP женский'}
-              doctorName={'ВОП, Косарева В.В.'}
-              date={'16.03.2021'}
-              norm={'Ожидается'}
-              num={0}
-              onPress={() => navigation.navigate('AnalysisSinglePage')}
-            />
-            <AnalysisCard
-              // percent={100}
-              Svg={Percent100}
-              name={'НСТ-тест (бактерицидная активность фагоцитов)'}
-              doctorName={'ВОП, Косарева В.В.'}
-              date={'16.03.2021'}
-              norm={'Норма'}
-              num={0}
-              onPress={() => navigation.navigate('AnalysisSinglePage')}
-            />
-            <AnalysisCard
-              // percent={90}
-              Svg={Percent90}
-              name={'Название комплекса'}
-              doctorName={'ВОП, Косарева В.В.'}
-              date={'16.03.2021'}
-              norm={'В процессе'}
-              num={0}
-              onPress={() => navigation.navigate('AnalysisSinglePage')}
-            />
+          <View style={{marginTop: 15}}>
+            {homepageAnalisysData.data.map((value, index) => {
+              return (
+                <AnalysisCard
+                  // percent={0}
+                  Svg={ZeroPercent}
+                  name={value.get_analis_by_medical_test_parametr[0].LABEL}
+                  doctorName={
+                    value.get_analis_by_medical_test_parametr[0].conttype
+                  }
+                  date={'16.03.2021'}
+                  norm={'Ожидается'}
+                  num={0}
+                  key={index}
+                />
+              );
+            })}
           </View>
         )}
       </ScrollView>
-      <TouchableOpacity
-        style={styles.greenButton}>
+      <TouchableOpacity style={styles.greenButton}>
         <AnalyzesCapsule />
         <Text style={styles.whiteText}>Заказать анализы</Text>
         <ArrowLeftMini />

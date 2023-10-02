@@ -25,9 +25,9 @@ export default function HorizontalActionCard({title, text, path, navigate}) {
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.text}>{text}</Text>
       </View>
-      <View style={styles.quantity}>
+      {/* <View style={styles.quantity}>
         <Text style={{color: '#FF414C'}}>11</Text>
-      </View>
+      </View> */}
     </TouchableOpacity>
   );
 }

@@ -15,6 +15,7 @@ export default function WelcomeSwiper({navigation}) {
   const [showPopup, setShowPopup] = useState(false);
   const dispatch = useDispatch();
   const {startInfo} = useSelector(state => state.justDriveReducer);
+
   useEffect(() => {
     dispatch(getStartInfo());
   }, []);
@@ -27,10 +28,11 @@ export default function WelcomeSwiper({navigation}) {
   //     }).then((response) => {
   //         console.log(response);
   //     });
-  //     // check(PERMISSIONS.ANDROID.RECEIVE_WAP_PUSH).then((response) => {
-  //     //     console.log(response);
-  //     // });
+  // check(PERMISSIONS.ANDROID.RECEIVE_WAP_PUSH).then((response) => {
+  //     console.log(response);
+  // });
   // }
+
   async function setTrue() {
     navigation.navigate('WelcomePage');
     await AsyncStorage.setItem('firstTime', 'false');
@@ -64,6 +66,7 @@ export default function WelcomeSwiper({navigation}) {
         }}
         showsButtons
         loop={false}>
+        {' '}
         <View style={styles.slide}>
           <Text style={styles.title}>{startInfo?.data?.text.headerOne}</Text>
           <Text style={styles.text}>{startInfo?.data?.text.textOne}</Text>

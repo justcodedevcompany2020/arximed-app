@@ -41,7 +41,7 @@ export default function ConsultationScreen({navigation, route}) {
   }, []);
   const dispatch = useDispatch();
 
-  // console.log(doctorTimeData?.data[0]?.day, 'basket add doctor time');
+  
 
   return (
     <>

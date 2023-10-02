@@ -927,3 +927,31 @@ export const getHomeService = () => {
     };
   } catch (error) {}
 };
+
+export const getNotificationData = () => {
+  try {
+    return async dispatch => {
+      const token = await AsyncStorage.getItem('token');
+      const Auth = 'Bearer ' + token;
+      let url = `https://archimed.justcode.am/api/get_my_notyfy`;
+      let requestOptions = {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: Auth,
+        },
+      };
+      fetch(url, requestOptions)
+        .then(resp => {
+          return resp.json();
+        })
+        .then(resp => {
+          dispatch({
+            type: 'GET_NOTIFICATION_DATA',
+            payload: resp,
+          });
+        })
+        .catch(err => console.error(err));
+    };
+  } catch (error) {}
+};

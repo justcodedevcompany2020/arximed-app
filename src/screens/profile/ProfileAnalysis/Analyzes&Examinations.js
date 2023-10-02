@@ -4,6 +4,7 @@ import SegmentedControlTab from 'react-native-segmented-control-tab';
 import AnalysisFirstScreen from './AnalysisFirstScreen';
 import SurveysScreen from './SurveysScreen';
 
+
 export default function AnalyzesAndExamination({navigation}) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   return (
