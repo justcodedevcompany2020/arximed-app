@@ -19,6 +19,8 @@ export default function DoctorProfile({navigation, route}) {
   const {doctorsSinglePageData, getAllReceptionData, doctorCommentData} =
     useSelector(state => state.justDriveReducer);
 
+  // console.log(doctorsSinglePageData.get_auth_user_order, 'jn');
+
   return (
     <SafeAreaView style={{flex: 1, width: '100%'}}>
       <ImageBackground
@@ -62,7 +64,8 @@ export default function DoctorProfile({navigation, route}) {
               Другая информация о враче Другая информация о враче Другая
               информация о враче
             </Text> */}
-            <RateCard />
+            {doctorsSinglePageData.get_auth_user_order ? <RateCard /> : ''}
+
             <Button
               text={'Записаться к специалисту'}
               color={'white'}

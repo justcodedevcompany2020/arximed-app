@@ -37,6 +37,7 @@ const initialState = {
   doctorTimeLoading: null,
   keysCount: [],
   notificationallData: [],
+  hasNotifyData: [],
 };
 
 function justDriveReducer(state = initialState, action) {
@@ -121,7 +122,10 @@ function justDriveReducer(state = initialState, action) {
       return {...state, keysCount: action.payload};
     case 'GET_NOTIFICATION_DATA':
       return {...state, notificationallData: action.payload};
+    case 'GET_HAS_NOTIFICATION':
+      return {...state, hasNotifyData: action.payload};
     // GET_KEYS_COUNT
+
     default:
       return state;
   }

@@ -788,12 +788,9 @@ export const DoctorsNavigator = () => {
         component={DoctorProfile}
         options={({navigation}) => ({
           headerTransparent: true,
+          title: '',
           headerLeft: () => (
-            <TouchableOpacity
-              style={{marginRight: 10}}
-              onPress={() => navigation.goBack()}>
-              <BackIcon />
-            </TouchableOpacity>
+            <HeaderTitle navigation={navigation} title={'Наши врачи'} left />
           ),
         })}
       />

@@ -64,6 +64,25 @@ export const NotificationIcon = () => {
     </Svg>
   );
 };
+export const NotificationIconNot = () => {
+  return (
+    <Svg
+      width={28}
+      height={28}
+      viewBox="0 0 28 28"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg">
+      <Path
+        d="M21.38 16.38a2.118 2.118 0 01.62 1.5v0A2.12 2.12 0 0119.88 20H8.12A2.12 2.12 0 016 17.88v0a2.12 2.12 0 01.62-1.5L8 15v-4a6 6 0 016-6v0a6 6 0 016 6v4l1.38 1.38zM17 20h-6a3 3 0 006 0z"
+        stroke="#000"
+        strokeWidth={2}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </Svg>
+  );
+};
+
 
 export const BasketIcon = () => {
   return (

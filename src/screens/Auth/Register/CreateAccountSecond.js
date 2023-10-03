@@ -52,20 +52,24 @@ export default function CreateAccountSecond({navigation, route}) {
   //   }
   // }, [email])
 
-  // function getBirthDate() {
-  //   let year = date.getFullYear()
-  //   let month = date.getMonth() + 1
-  //   let day = date.getDate()
-  //   const birthDate = '' + year + (month < 10 ? '0' + month : month) + (day < 10 ? '0' + day : day);
-  //   let currentDate = new Date()
-  //   let currentYear = currentDate.getFullYear()
-  //   console.log(currentYear);
-  //   if (currentYear - year < 16) {
-  //     setShowBirthError(true)
-  //     return false
-  //   }
-  //   return birthDate
-  // }
+  function getBirthDate() {
+    let year = date.getFullYear();
+    let month = date.getMonth() + 1;
+    let day = date.getDate();
+    const birthDate =
+      '' +
+      year +
+      (month < 10 ? '0' + month : month) +
+      (day < 10 ? '0' + day : day);
+    let currentDate = new Date();
+    let currentYear = currentDate.getFullYear();
+    console.log(currentYear);
+    if (currentYear - year < 16) {
+      setShowBirthError(true);
+      return false;
+    }
+    return birthDate;
+  }
 
   // async function onContinue() {
   // let myPhone = '+' + phone.replace(/\D/g, '');
@@ -165,6 +169,7 @@ export default function CreateAccountSecond({navigation, route}) {
           inputType={'date'}
           value={date}
           onChangeText={value => {
+            console.log(value, 'vaalllF');
             setDate(value);
             setDateIsSelected(true);
           }}
@@ -264,6 +269,6 @@ const styles = StyleSheet.create({
   },
   errorText: {
     color: 'red',
-    fontSize:12
+    fontSize: 12,
   },
 });

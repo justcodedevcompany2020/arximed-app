@@ -17,8 +17,9 @@ export default function AnalysesCardsContainer({navigation}) {
 
   useEffect(() => {
     dispatch(getHomePageAnalisys());
+    
   }, []);
-  console.log(homepageAnalisysData, 'hommeee');
+  // console.log(homepageAnalisysData, 'hommeee');
 
   return (
     <>

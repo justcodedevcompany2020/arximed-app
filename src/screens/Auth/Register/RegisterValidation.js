@@ -199,11 +199,11 @@ export default function RegisterValidation({navigation, route}) {
         return resp.json();
       })
       .then(resp => {
-        console.log(resp, 'confirm login');
+        // console.log(resp, 'confirm login');
         setRes(resp);
         if (resp.MyToken) {
           storeUser(resp.MyToken);
-          navigation.navigate('Menu');
+          navigation.navigate('PinCodeScreen');
         }
       });
   };
@@ -229,6 +229,8 @@ export default function RegisterValidation({navigation, route}) {
       setIsDisabled(false);
     }
   };
+
+  // console.log(registerPhoneNumber, 'okjo');
 
   return (
     <SafeAreaView style={styles.container}>
@@ -323,19 +325,23 @@ export default function RegisterValidation({navigation, route}) {
           />
         )}
 
-        <TouchableOpacity>
-          <Text style={styles.blueText}>Не получили код?</Text>
-        </TouchableOpacity>
-
-        <View style={styles.codeBlock}>
+        {isEnableResendPhone && isEnableSendCode && !show10Minutes ? (
           <TouchableOpacity
             onPress={
               isEnableResendPhone && isEnableSendCode && !show10Minutes
                 ? login
                   ? () => confirmCodeLogin(phone)
-                  : () => dispatch(newConfirmCode(phone))
+                  : () => dispatch(newConfirmCode(registerPhoneNumber))
                 : null
             }>
+            <Text style={styles.blueText}>Не получили код?</Text>
+          </TouchableOpacity>
+        ) : (
+          ''
+        )}
+
+        <View style={styles.codeBlock}>
+          <TouchableOpacity>
             <Text style={styles.codeBigText}>
               Отправить код повторно{' '}
               {/* {!isEnableResendPhone && show10Minutes && ':'} */}

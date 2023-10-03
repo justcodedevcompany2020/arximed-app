@@ -1,8 +1,5 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-useless-escape */
 import React, {useEffect, useState} from 'react';
 import {SafeAreaView, ScrollView, StyleSheet, Text} from 'react-native';
-
 import IllustrationBlock from '../../../components/IllustrationBlock';
 import BigText from '../../../components/BigText';
 import Button from '../../../components/Button';

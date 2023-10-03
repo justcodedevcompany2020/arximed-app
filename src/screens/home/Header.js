@@ -4,20 +4,30 @@ import {
   NotificationIcon,
   UserIcon,
   BasketIcon,
+  NotificationIconNot,
 } from '../../assets/svgs/HomeScreenSvgs';
-import {getUserInfo} from '../../store/actions/actions';
+import {getUserInfo, getHasNotificatiion} from '../../store/actions/actions';
 import {useDispatch, useSelector} from 'react-redux';
 
 export default function HomeHeader({navigation}) {
   const dispatch = useDispatch();
-  const {userInfo} = useSelector(state => state.justDriveReducer);
+  const {userInfo, hasNotifyData} = useSelector(
+    state => state.justDriveReducer,
+  );
+
   useEffect(() => {
     dispatch(getUserInfo());
   }, []);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      dispatch(getHasNotificatiion());
+    }, 10000);
+    return () => clearInterval(interval);
+  }, []);
 
-  console.log(userInfo, 'userInfo')
-
+  console.log(userInfo, 'userInfo');
+  console.log(hasNotifyData, 'hasssasasas');
   return (
     <View
       style={{
@@ -53,7 +63,11 @@ export default function HomeHeader({navigation}) {
           justifyContent: 'space-between',
         }}>
         <TouchableOpacity onPress={() => navigation.navigate('Notifications')}>
-          <NotificationIcon />
+          {hasNotifyData.message === 'You have a new notification' ? (
+            <NotificationIcon />
+          ) : (
+            <NotificationIconNot />
+          )}
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => navigation.navigate('BasketNavigator')}>

@@ -143,6 +143,7 @@ export const newConfirmCode = phone => {
           return resp.json();
         })
         .then(resp => {
+          console.log(resp, 'jknkjn');
           dispatch({
             type: 'GET_NEW_CONFIRM_CODE',
             payload: resp,
@@ -277,6 +278,34 @@ export const saveDateForConsultation = date => dispatch => {
     type: 'SAVE_DATE_FOR_CONSULTATION',
     payload: date,
   });
+};
+
+export const getHasNotificatiion = () => {
+  try {
+    return async dispatch => {
+      const token = await AsyncStorage.getItem('token');
+      const Auth = 'Bearer ' + token;
+      let url = `https://archimed.justcode.am/api/has_mynotification`;
+      let requestOptions = {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: Auth,
+        },
+      };
+      fetch(url, requestOptions)
+        .then(resp => {
+          return resp.json();
+        })
+        .then(resp => {
+          dispatch({
+            type: 'GET_HAS_NOTIFICATION',
+            payload: resp,
+          });
+        })
+        .catch(err => console.error(err));
+    };
+  } catch (error) {}
 };
 
 export const getUserInfo = () => {

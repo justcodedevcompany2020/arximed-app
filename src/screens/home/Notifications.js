@@ -7,6 +7,7 @@ import {
   View,
   ImageBackground,
   FlatList,
+  ActivityIndicator,
 } from 'react-native';
 import {NoNotificationsIcon} from '../../assets/svgs/NotificationScreenSvgs';
 import All from './All';
@@ -21,32 +22,39 @@ export default function Notifications() {
   const [page, setPage] = useState(1);
   const [data, setData] = useState([]);
 
+  const fetchData = async () => {
+    setIsLoading(true);
+    try {
+      dispatch(getNotificationData());
+      setPage(page + 1);
+    } catch {}
+    setIsLoading(false);
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-      try {
-        dispatch(getNotificationData());
-        setPage(page + 1);
-        setData([...data, ]);
-      } catch {}
-      setIsLoading(false);
-    };
+    fetchData();
+    if (notificationallData.data.data.length > 0) {
+    }
   }, []);
 
   const renderItem = ({item, index}) => {
     return (
       <Notification
-        title={'Онлайн-консультация '}
-        time={'15:00'}
-        text={
-          'Онлайн консультация, запланированная на 20.07.2022 14:00 началась. Вас ожидает врач. '
-        }
-        first
+        title={item.title}
+        time={`${item.created_at.split('T')[1].split(':')[0]}:${
+          item.created_at.split('T')[1].split(':')[1]
+        }`}
+        text={item.description}
+        first={item.status == '2' ? true : false}
       />
     );
   };
 
-  console.log(notificationallData?.data?.data, 'lll');
+  console.log(notificationallData, 'lll');
+
+  const renderFooter = () => {
+    if (!isLoading) return null;
+    return <ActivityIndicator size={'large'} />;
+  };
 
   return (
     <SafeAreaView style={{flex: 1, paddingTop: 120}}>
@@ -57,7 +65,7 @@ export default function Notifications() {
       />
       {notificationallData?.data?.data.length > 0 ? (
         <FlatList
-          data={globalSearchData}
+          data={notificationallData?.data?.data}
           renderItem={renderItem}
           keyExtractor={(item, index) => index}
           onEndReached={fetchData}

@@ -64,13 +64,16 @@ export default function Calendar() {
     subject_id_doctors,
     doctorTimeData,
   } = useSelector(state => state.justDriveReducer);
+  const currentDate = new Date();
+
+  console.log(currentDate, 'ddd');
 
   useEffect(() => {
-    console.log(selectedDay.format('YYYY-MM-DD'));
+    // console.log(selectedDay.format('YYYY-MM-DD'));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log(exam_id_doctors, subject_id_doctors);
+  // console.log(exam_id_doctors, subject_id_doctors);
 
   return (
     <LinearGradient
@@ -122,9 +125,6 @@ export default function Calendar() {
           },
         }}
         disablePan={true}
-        // current={null}
-        // markedDates={{}}
-
         pastScrollRange={2}
         futureScrollRange={2}
         hideArrows={true}
@@ -136,17 +136,39 @@ export default function Calendar() {
               exam_id_doctors,
               day.dateString,
               day.dateString,
-              // 11,
-              // 253409,
-              // '07-05-2023',
-              // '07-05-2023'
             ),
           );
         }}
         renderHeader={date => {
-          let month = date.getMonth();
+          let months = date.getMonth() + 1;
           let year = date.getFullYear();
-          let yearMonth = `${monthNames[month]} ${year}`;
+          let days = date.getDay();
+          const month =
+            months == '01'
+              ? 'январь'
+              : months == '02'
+              ? 'февраль'
+              : months == '03'
+              ? 'март'
+              : months == '04'
+              ? 'апрель'
+              : months == '05'
+              ? 'май'
+              : months == '06'
+              ? 'июнь'
+              : months == '07'
+              ? 'июль'
+              : months == '08'
+              ? 'август'
+              : months == '09'
+              ? 'сентябрь'
+              : months == '10'
+              ? 'октябрь'
+              : months == '11'
+              ? 'ноябрь'
+              : 'декабрь';
+          const day = days + 1;
+          let yearMonth = `${month} ${year}`;
           return (
             <View
               style={{
@@ -156,7 +178,9 @@ export default function Calendar() {
                 marginBottom: 10,
               }}>
               <Text style={styles.month}>{yearMonth}</Text>
-              <Text style={styles.month}>Сегодня, 20 июля</Text>
+              <Text style={styles.month}>
+                Сегодня, {day} {month}
+              </Text>
             </View>
           );
         }}
