@@ -43,7 +43,7 @@ export default function ProfileSelection() {
         </View>
         <ArrowDown />
       </TouchableOpacity>
-      <TouchableOpacity
+      {/* <TouchableOpacity
         onPress={() => setChange(!change)}
         style={styles.greenButton}>
         <Svg
@@ -60,7 +60,7 @@ export default function ProfileSelection() {
           />
         </Svg>
         <Text style={styles.greenButtonText}>Добавить пользователя</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
       {/* )
             } */}
     </View>

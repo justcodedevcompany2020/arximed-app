@@ -1,18 +1,11 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {SafeAreaView} from 'react-native';
 import {ScrollView} from 'react-native';
 import {TouchableOpacity, View, Text, Modal, StyleSheet} from 'react-native';
 import {BackIcon} from '../../../assets/svgs/HomeScreenSvgs';
 import {DoneIcon, PlaceIcon} from '../../../assets/svgs/DoctorsScreenSvgs';
-import {useSelector} from 'react-redux';
-
-let data = [
-  {id: 1, name: 'Москва'},
-  {id: 2, name: 'Санкт-Петербург'},
-  {id: 3, name: 'Красноярск'},
-  {id: 4, name: 'Сочи'},
-  {id: 5, name: 'Волгоград'},
-];
+import {useSelector, useDispatch} from 'react-redux';
+import {getCityList, getDoctorsList} from '../../../store/actions/actions';
 
 export default function CitiesModal({
   modalVisible,
@@ -20,6 +13,18 @@ export default function CitiesModal({
   selectedCity,
   setSelectedCity,
 }) {
+  const dispatch = useDispatch();
+  const {
+    registerPhoneNumber,
+    registerConfirmData,
+    cityListData,
+    userAddCityData,
+  } = useSelector(state => state.justDriveReducer);
+  useEffect(() => {
+    dispatch(getDoctorsList(1, '', false, ''));
+    dispatch(getCityList());
+  }, []);
+
   return (
     <Modal
       animationType="slide"
@@ -38,26 +43,27 @@ export default function CitiesModal({
         <ScrollView
           style={styles.citiesContainer}
           showsVerticalScrollIndicator={false}>
-          {data.map(item => {
+          {cityListData?.data?.city.map(item => {
             return (
               <TouchableOpacity
                 key={item.id}
                 style={styles.cityContainer}
                 onPress={() => {
-                  setSelectedCity(item.name);
+                  setSelectedCity(item.ville);
                   setModalVisible(false);
+                  dispatch(getDoctorsList(1, '', false, item.ville));
                 }}>
                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                  {item.name === selectedCity && <PlaceIcon />}
+                  {item.ville === selectedCity && <PlaceIcon />}
                   <Text
                     style={[
                       styles.cityName,
-                      item.name === selectedCity && {marginLeft: 5},
+                      item.ville === selectedCity && {marginLeft: 5},
                     ]}>
-                    {item.name}
+                    {item.ville}
                   </Text>
                 </View>
-                {item.name === selectedCity && <DoneIcon />}
+                {item.ville === selectedCity && <DoneIcon />}
               </TouchableOpacity>
             );
           })}

@@ -240,6 +240,7 @@ export default function CreateAccountSecond({navigation, route}) {
                 registerPhoneNumber,
                 date,
                 genderRequest,
+                email
               ),
             );
             navigation.navigate('RegisterValidation', {

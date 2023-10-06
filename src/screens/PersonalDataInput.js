@@ -18,7 +18,10 @@ export default function PersonalDataInput({
   onChangeText,
   backgroundColor,
   blur,
+  edit,
   widths,
+  onFocus,
+  onBlur,
 }) {
   const [text, setText] = useState('Дата рождения');
   const [openPicker, setOpenPicker] = useState(false);
@@ -87,6 +90,7 @@ export default function PersonalDataInput({
       ]}>
       <Svg />
       <TextInput
+        editable={edit}
         style={styles.input}
         onChangeText={onChangeText}
         value={value}
@@ -94,6 +98,7 @@ export default function PersonalDataInput({
         placeholderTextColor={'black'}
         keyboardType={inputType}
         onBlur={blur}
+        onFocus={onFocus}
       />
     </View>
   ) : inputType === 'date' ? (

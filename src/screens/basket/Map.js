@@ -1,5 +1,11 @@
-import React, {useEffect, useState, useRef} from 'react';
-import {SafeAreaView, StyleSheet, View, Image} from 'react-native';
+import React, {useEffect, useState, useRef, useCallback} from 'react';
+import {
+  SafeAreaView,
+  StyleSheet,
+  View,
+  Image,
+  PermissionsAndroid,
+} from 'react-native';
 import {MarkerIcon} from '../../assets/svgs/BasketSvgs';
 import Address from './Address';
 import {
@@ -13,7 +19,7 @@ import {
   Geocoder,
   Polyline,
 } from 'react-native-yamap';
-// import Geolocation from 'react-native-geolocation-service';
+import Geolocation from 'react-native-geolocation-service';
 
 YaMap.init('d93a70a1-fd4d-45d1-ad20-19ae15cf3180');
 
@@ -27,162 +33,77 @@ export default function MapScreen({navigation, route}) {
   const [accurancy, setAccurancy] = useState('');
   const [date, setDate] = useState('');
 
-  // const requestLocationPermission = async () => {
-  //   if (Platform.OS === 'ios') {
-  //     const auth = await Geolocation.requestAuthorization('whenInUse');
-  //     setAuth(auth);
-  //     if (auth === 'granted') {
-  //       const watchId = Geolocation.watchPosition(
-  //         position => {
-  //           console.log(position, 'position');
-  //           setPosition(position);
+  const requestLocationPermission = async () => {
+    if (Platform.OS === 'ios') {
+      const auth = await Geolocation.requestAuthorization('whenInUse');
+      setAuth(auth);
+      if (auth === 'granted') {
+        const watchId = Geolocation.watchPosition(
+          position => {
+            console.log(position, 'position');
+            setPosition(position);
 
-  //           setLongitude(position.coords.longitude);
-  //           setLatitude(position.coords.latitude);
-  //           setAccurancy(position.coords.accuracy.toFixed(2));
-  //           let date = moment(position.coords.timestamp).format(
-  //             'YYYY-MM-DD hh:mm:ss',
-  //           );
-  //           setDate(date);
-  //         },
-  //         error => {
-  //           console.log('Geolocation error:', error.message);
-  //         },
-  //         {
-  //           timeout: 15000,
-  //           maximumAge: 10000,
-  //           enableHighAccuracy: true,
-  //           distanceFilter: 1,
-  //           interval: 1000,
-  //           forceRequestLocation: true,
-  //         },
-  //       );
-  //     }
-  //     return null;
-  //   } else if (Platform.OS === 'android') {
-  //     try {
-  //       const granted = await PermissionsAndroid.request(
-  //         PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-  //       );
+            setLongitude(position.coords.longitude);
+            setLatitude(position.coords.latitude);
+            setAccurancy(position.coords.accuracy.toFixed(2));
+            let date = moment(position.coords.timestamp).format(
+              'YYYY-MM-DD hh:mm:ss',
+            );
+            setDate(date);
+          },
+          error => {
+            console.log('Geolocation error:', error.message);
+          },
+          {
+            timeout: 15000,
+            maximumAge: 10000,
+            enableHighAccuracy: true,
+            distanceFilter: 1,
+            interval: 1000,
+            forceRequestLocation: true,
+          },
+        );
+      }
+      return null;
+    } else if (Platform.OS === 'android') {
+      try {
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+        );
 
-  //       if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-  //         const watchId = Geolocation.watchPosition(
-  //           position => {
-  //             // console.log('Geolocation new position:', position);
-  //             setLongitude(position.coords.longitude);
-  //             setLatitude(position.coords.latitude);
-  //             setAccurancy(position.coords.accuracy.toFixed(2));
-  //             let date = moment(position.coords.timestamp).format(
-  //               'YYYY-MM-DD hh:mm:ss',
-  //             );
-  //             setDate(date);
-  //           },
-  //           error => {
-  //             console.log('Geolocation error:', error.message);
-  //           },
-  //           {
-  //             timeout: 15000,
-  //             maximumAge: 10000,
-  //             enableHighAccuracy: true,
-  //             distanceFilter: 1,
-  //             interval: 1000,
-  //             forceRequestLocation: true,
-  //           },
-  //         );
-  //       } else {
-  //         requestLocationPermission();
-  //       }
-  //     } catch (err) {
-  //       console.warn(err.message);
-  //       return false;
-  //     }
-  //   }
-  // };
-  // const requestLocationPermission = async () => {
-  //   if (Platform.OS === 'ios') {
-  //     const auth = await Geolocation.requestAuthorization('whenInUse');
-  //     setAuth(auth);
-  //     if (auth === 'granted') {
-  //       const watchId = Geolocation.watchPosition(
-  //         position => {
-  //           console.log(position, 'position');
-  //           setPosition(position);
+        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+          const watchId = Geolocation.watchPosition(
+            position => {
+              console.log('Geolocation new position:', position);
+            
+            },
+            error => {
+              console.log('Geolocation error:', error.message);
+            },
+            {
+              timeout: 15000,
+              maximumAge: 10000,
+              enableHighAccuracy: true,
+              distanceFilter: 1,
+              interval: 9000000000000000000000000000000000000000000000,
+              forceRequestLocation: true,
+            },
+          );
+        } else {
+          requestLocationPermission();
+        }
+      } catch (err) {
+        console.warn(err.message, 'error');
+        return false;
+      }
+    }
+  };
 
-  //           setLongitude(position.coords.longitude);
-  //           setLatitude(position.coords.latitude);
-  //           setAccurancy(position.coords.accuracy.toFixed(2));
-  //           let date = moment(position.coords.timestamp).format(
-  //             'YYYY-MM-DD hh:mm:ss',
-  //           );
-  //           setDate(date);
-  //         },
-  //         error => {
-  //           console.log('Geolocation error:', error.message);
-  //         },
-  //         {
-  //           timeout: 15000,
-  //           maximumAge: 10000,
-  //           enableHighAccuracy: true,
-  //           distanceFilter: 1,
-  //           interval: 1000,
-  //           forceRequestLocation: true,
-  //         },
-  //       );
-  //     }
-  //     return null;
-  //   } else if (Platform.OS === 'android') {
-  //     try {
-  //       const granted = await PermissionsAndroid.request(
-  //         PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-  //       );
-
-  //       if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-  //         const watchId = Geolocation.watchPosition(
-  //           position => {
-  //             // console.log('Geolocation new position:', position);
-  //             setLongitude(position.coords.longitude);
-  //             setLatitude(position.coords.latitude);
-  //             setAccurancy(position.coords.accuracy.toFixed(2));
-  //             let date = moment(position.coords.timestamp).format(
-  //               'YYYY-MM-DD hh:mm:ss',
-  //             );
-  //             setDate(date);
-  //           },
-  //           error => {
-  //             console.log('Geolocation error:', error.message);
-  //           },
-  //           {
-  //             timeout: 15000,
-  //             maximumAge: 10000,
-  //             enableHighAccuracy: true,
-  //             distanceFilter: 1,
-  //             interval: 1000,
-  //             forceRequestLocation: true,
-  //           },
-  //         );
-  //       } else {
-  //         requestLocationPermission();
-  //       }
-  //     } catch (err) {
-  //       console.warn(err.message);
-  //       return false;
-  //     }
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   // Get the user's location when the component mounts
-  //   Geolocation.getCurrentPosition(
-  //     position => {
-  //       const {latitude, longitude} = position.coords;
-  //       setLatitude(latitude);
-  //       setLongitude(longitude);
-  //     },
-  //     // error => console.log('Error getting location:', error),
-  //     // {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000},
-  //   );
-
-  // }, []);
+  useEffect(() => {
+    (async () => {
+      await requestLocationPermission();
+    })();
+  }, []);
 
   // function isPointInPolygon(point, polygon) {
   //   const x = point.latitude;

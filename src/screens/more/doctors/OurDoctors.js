@@ -25,6 +25,8 @@ export default function OurDoctors({navigation}) {
   };
   const [modalVisible, setModalVisible] = useState(false);
 
+  console.log(cityName, 'kjl');
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(
@@ -103,16 +105,6 @@ export default function OurDoctors({navigation}) {
           scrollIndicatorInsets={true}
         />
       </View>
-      {/* <Switch
-                accessibilityLabel={locals.label}
-                ref="input"
-                disabled={locals.disabled}
-                onTintColor={locals.onTintColor}
-                thumbTintColor={locals.thumbTintColor}
-                tintColor={locals.tintColor}
-                style={checkboxStyle}
-                onValueChange={(value) => locals.onChange(value)}
-                value={locals.value} /> */}
     </SafeAreaView>
   );
 }

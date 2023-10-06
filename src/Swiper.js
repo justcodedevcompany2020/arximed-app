@@ -66,7 +66,7 @@ export default function WelcomeSwiper({navigation}) {
         }}
         showsButtons
         loop={false}>
-        {' '}
+     
         <View style={styles.slide}>
           <Text style={styles.title}>{startInfo?.data?.text.headerOne}</Text>
           <Text style={styles.text}>{startInfo?.data?.text.textOne}</Text>

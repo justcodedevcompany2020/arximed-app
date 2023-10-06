@@ -32,8 +32,6 @@ export default function Notifications() {
   };
   useEffect(() => {
     fetchData();
-    if (notificationallData.data.data.length > 0) {
-    }
   }, []);
 
   const renderItem = ({item, index}) => {

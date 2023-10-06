@@ -21,6 +21,7 @@ export const registeredFunction = (
   phone,
   birthDate,
   gender,
+  email,
 ) => {
   try {
     return async dispatch => {
@@ -37,6 +38,7 @@ export const registeredFunction = (
           phone: phone,
           birthDate: birthDate,
           gender: gender,
+          mail: email,
         }),
       };
       fetch(url, requestOptions)

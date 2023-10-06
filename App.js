@@ -18,9 +18,11 @@ const App = () => {
 
   async function isFirstTime() {
     const value = await AsyncStorage.getItem('firstTime');
-    console.log(value);
-    if (value === 'true') {
+    console.log(value, 'value');
+    let token = await AsyncStorage.getItem('token');
+    if (token == null && value == 'true') {
       setInitialRouteName('WelcomeSwiper');
+      console.log(initialRouteName, 'namemme');
       await AsyncStorage.setItem('firstTime', 'true');
     } else {
       let token = await AsyncStorage.getItem('token');

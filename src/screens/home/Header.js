@@ -19,12 +19,12 @@ export default function HomeHeader({navigation}) {
     dispatch(getUserInfo());
   }, []);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      dispatch(getHasNotificatiion());
-    }, 10000);
-    return () => clearInterval(interval);
-  }, []);
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     dispatch(getHasNotificatiion());
+  //   }, 10000);
+  //   return () => clearInterval(interval);
+  // }, []);
 
   console.log(userInfo, 'userInfo');
   console.log(hasNotifyData, 'hasssasasas');

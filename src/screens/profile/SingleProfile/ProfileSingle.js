@@ -38,6 +38,7 @@ export default function ProfileSingle({navigation}) {
         />
         <ProfileSelection />
         <PersonalData />
+        
       </ScrollView>
     </SafeAreaView>
   );

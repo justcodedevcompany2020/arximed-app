@@ -137,7 +137,6 @@ export default function CreateNewAccount({navigation}) {
                 </TouchableOpacity>
               );
             })}
-            {/* der chenq anum  */}
             {/* <TouchableOpacity
               style={styles.cityDiv}
               onPress={() => {

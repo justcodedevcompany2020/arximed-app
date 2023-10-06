@@ -12,7 +12,10 @@ import {
   User,
 } from '../../../assets/svgs/BasketSvgs';
 import {useDispatch, useSelector} from 'react-redux';
-import {updateProfileFunction} from '../../../store/actions/actions';
+import {
+  updateProfileFunction,
+  getUserInfo,
+} from '../../../store/actions/actions';
 
 export default function PersonalData() {
   const {userInfo, updadeUserData} = useSelector(
@@ -22,22 +25,34 @@ export default function PersonalData() {
   const [name, setName] = useState(userInfo.data.firstName);
   const [lastName, setLastName] = useState(userInfo.data.lastName);
   const [middleName, setMiddleName] = useState(userInfo.data.middleName);
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState(
+    userInfo.data.email ? userInfo.data.email : '',
+  );
   const [date, setDate] = useState(userInfo.data.birthDate);
   const [dateIsSelected, setDateIsSelected] = useState(false);
   const [phone, setPhone] = useState(userInfo.data.phone);
-  const [gender, setGender] = useState('');
+  const [gender, setGender] = useState(
+    userInfo.data.gender == 'M' ? 'Мужской' : 'Женский',
+  );
   const [genderIsSelected, setGendereIsSelected] = useState(false);
-  const [citizenship, setCitizenship] = useState('');
-  const [address, setAddress] = useState('');
-  const [workplace, setWorkplace] = useState('');
+  const [citizenship, setCitizenship] = useState(
+    userInfo.data.Citizenship ? userInfo.data.Citizenship : '',
+  );
+  const [address, setAddress] = useState(
+    userInfo.data.Actual_Address ? userInfo.data.Actual_Address : '',
+  );
+  const [workplace, setWorkplace] = useState(
+    userInfo.data.job ? userInfo.data.job : '',
+  );
   const [documentType, setDocumentType] = useState('');
   const [documentNumber, setDocumentNumber] = useState('');
   const [whoIssued, setWhoIssued] = useState('');
   const [snils, setSnils] = useState('');
   const [comment, setComment] = useState('');
   const dispatch = useDispatch();
-  console.log(updadeUserData, 'update');
+  const [jobChange, setJobChange] = useState(false);
+  const [citychange, setCityChange] = useState(false);
+  const [whoChange, setWhoChange] = useState(false);
 
   return (
     <View style={{width: '100%', marginTop: 8, marginBottom: 20}}>
@@ -48,6 +63,7 @@ export default function PersonalData() {
         value={name}
         onChangeText={setName}
         Svg={User}
+        edit={false}
       />
       <PersonalDataInput
         inputName={'Фамилия'}
@@ -55,6 +71,7 @@ export default function PersonalData() {
         value={lastName}
         onChangeText={setLastName}
         Svg={User}
+        edit={false}
       />
       <PersonalDataInput
         inputName={'Отчество '}
@@ -62,6 +79,7 @@ export default function PersonalData() {
         value={middleName}
         onChangeText={setMiddleName}
         Svg={User}
+        edit={false}
       />
       <PersonalDataInput
         inputName={'Дата рождения '}
@@ -69,23 +87,15 @@ export default function PersonalData() {
         value={date}
         onChangeText={setMiddleName}
         Svg={Calendar}
+        edit={false}
       />
-      {/* <PersonalDataInput
-        inputName={'Дата рождения'}
-        inputType={'date'}
-        value={date}
-        onChangeText={value => {
-          setDate(value);
-          setDateIsSelected(true);
-        }}
-        Svg={Calendar}
-      /> */}
       <PersonalDataInput
         inputName={'Почта'}
         inputType={'default'}
         value={email}
         onChangeText={setEmail}
         Svg={Email}
+        edit={false}
       />
       <PersonalDataInput
         inputName={'Номер телефона'}
@@ -93,133 +103,146 @@ export default function PersonalData() {
         value={phone}
         onChangeText={setPhone}
         Svg={Phone}
+        edit={false}
       />
       <PersonalDataInput
         inputName={'Пол'}
-        inputType={'gender'}
+        inputType={'default'}
         value={gender}
-        onChangeText={value => {
-          setGender(value);
-          setGendereIsSelected(true);
-        }}
+        edit={false}
         Svg={Gender}
       />
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-        }}>
+
+      {whoChange ? (
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}>
+          <PersonalDataInput
+            widths={'90%'}
+            inputName={'Гражданство'}
+            inputType={'default'}
+            value={citizenship}
+            onChangeText={setCitizenship}
+            Svg={User}
+          />
+          <TouchableOpacity
+            onPress={() => {
+              dispatch(updateProfileFunction(citizenship, address, workplace));
+              dispatch(getUserInfo());
+              setWhoChange(false);
+            }}
+            style={{alignItems: 'center', justifyContent: 'center'}}>
+            <Image
+              style={{width: 30, height: 30}}
+              source={require('../../../assets/images/pluspink.png')}
+            />
+          </TouchableOpacity>
+        </View>
+      ) : (
         <PersonalDataInput
-          widths={'90%'}
           inputName={'Гражданство'}
           inputType={'default'}
           value={citizenship}
           onChangeText={setCitizenship}
           Svg={User}
+          onFocus={() => {
+            setWhoChange(true);
+          }}
         />
-        <TouchableOpacity
-          onPress={() =>
-            dispatch(updateProfileFunction(citizenship, address, workplace))
-          }
-          style={{alignItems: 'center', justifyContent: 'center'}}>
-          <Image
-            style={{width: 30, height: 30}}
-            source={require('../../../assets/images/pluspink.png')}
+      )}
+      {citychange ? (
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}>
+          <PersonalDataInput
+            widths={'90%'}
+            inputName={'Адрес фактического места жительства'}
+            inputType={'default'}
+            value={address}
+            onChangeText={setAddress}
+            Svg={PushPin}
           />
-        </TouchableOpacity>
-      </View>
-
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-        }}>
+          <TouchableOpacity
+            onPress={() => {
+              dispatch(updateProfileFunction(citizenship, address, workplace));
+              dispatch(getUserInfo());
+              setCityChange(false);
+            }}
+            style={{alignItems: 'center', justifyContent: 'center'}}>
+            <Image
+              style={{width: 30, height: 30}}
+              source={require('../../../assets/images/pluspink.png')}
+            />
+          </TouchableOpacity>
+        </View>
+      ) : (
         <PersonalDataInput
-          widths={'90%'}
           inputName={'Адрес фактического места жительства'}
           inputType={'default'}
           value={address}
           onChangeText={setAddress}
           Svg={PushPin}
+          onFocus={() => {
+            setCityChange(true);
+          }}
         />
-        <TouchableOpacity
-          onPress={() =>
-            dispatch(updateProfileFunction(citizenship, address, workplace))
-          }
-          style={{alignItems: 'center', justifyContent: 'center'}}>
-          <Image
-            style={{width: 30, height: 30}}
-            source={require('../../../assets/images/pluspink.png')}
+      )}
+
+      {jobChange ? (
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}>
+          <PersonalDataInput
+            widths={'90%'}
+            inputName={'Место учебы/работы'}
+            inputType={'default'}
+            value={workplace}
+            onChangeText={setWorkplace}
+            Svg={PushPin}
+            onFocus={() => {
+              setJobChange(true);
+            }}
+            onBlur={() => {
+              setJobChange(false);
+            }}
           />
-        </TouchableOpacity>
-      </View>
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-        }}>
+          <TouchableOpacity
+            onPress={() => {
+              dispatch(updateProfileFunction(citizenship, address, workplace));
+              dispatch(getUserInfo());
+              setJobChange(false);
+            }}
+            style={{alignItems: 'center', justifyContent: 'center'}}>
+            <Image
+              style={{width: 30, height: 30}}
+              source={require('../../../assets/images/pluspink.png')}
+            />
+          </TouchableOpacity>
+        </View>
+      ) : (
         <PersonalDataInput
-          widths={'90%'}
           inputName={'Место учебы/работы'}
           inputType={'default'}
           value={workplace}
           onChangeText={setWorkplace}
           Svg={PushPin}
+          onFocus={() => {
+            setJobChange(true);
+          }}
         />
-        <TouchableOpacity
-          onPress={() =>
-            dispatch(updateProfileFunction(citizenship, address, workplace))
-          }
-          style={{alignItems: 'center', justifyContent: 'center'}}>
-          <Image
-            style={{width: 30, height: 30}}
-            source={require('../../../assets/images/pluspink.png')}
-          />
-        </TouchableOpacity>
-      </View>
-
-      {/* 
-      <Text style={styles.personalDataText}>Документы</Text>
-
-      <PersonalDataInput
-        inputName={'Тип документа'}
-        inputType={'default'}
-        value={documentType}
-        onChangeText={setDocumentType}
-        Svg={Document}
-      />
-      <PersonalDataInput
-        inputName={'Номер документа'}
-        inputType={'numeric'}
-        value={documentNumber}
-        onChangeText={setDocumentNumber}
-        Svg={Document}
-      />
-      <PersonalDataInput
-        inputName={'Кем выдан документ'}
-        inputType={'default'}
-        value={whoIssued}
-        onChangeText={setWhoIssued}
-        Svg={Document}
-      />
-      <PersonalDataInput
-        inputName={'СНИЛС '}
-        inputType={'numeric'}
-        value={snils}
-        onChangeText={setSnils}
-        Svg={Document}
-      />
-      <PersonalDataInput
-        inputName={'Комментарий к заказу'}
-        inputType={'default'}
-        value={comment}
-        onChangeText={setComment}
-        Svg={Comment}
-      />
-      <Text style={styles.blueText}>Добавить документ</Text> */}
+      )}
+      <TouchableOpacity>
+        <Text style={styles.blueText}>Установить ПИН</Text>
+      </TouchableOpacity>
     </View>
   );
 }
